@@ -4,11 +4,26 @@
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title">
-    {{ config('app.name')}} <br />
-</div>
-<div class="h1">
-    {{ $region->denominazione_regione }}
+<div class="row">
+    <div class="col">
+        <div class="title">
+            {{ config('app.name')}} <br />
+        </div>
+        <div class="h1 mb-4">
+            {{ $region->denominazione_regione }}
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-white bg-dark mb-3 float-right">
+            <div class="card-body">
+                <h5 class="card-title">Dettagli:</h5>
+                <p class="card-text text-left links">
+                    <b>Denominazione:</b> {{ $region->denominazione_regione }} <br />
+                    <b>Coordinate:</b> <a target="_blank" href="https://maps.google.it/?q={{ $region->lat }},{{ $region->long }}">{{ $region->lat }},{{ $region->long }}</a> <br />
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
