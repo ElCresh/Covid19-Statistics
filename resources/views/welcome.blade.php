@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="title m-b-md text-center">
-    {{ env('APP_NAME')}}
+    {{ config('APP_NAME')}}
 </div>
 
 <div class="links text-center">
