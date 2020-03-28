@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::view('/regions', 'regions.list')->name('regions');
 Route::view('/provinces', 'provinces.list')->name('provinces');
 Route::get('/provinces/{sigla}', 'ProvinceController@statistics')->name('province.statistics');
+Route::get('/regions/{sigla}', 'RegionController@statistics')->name('region.statistics');

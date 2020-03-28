@@ -9,7 +9,7 @@ Scopo ulteriori è quello di mantenere online una copia funzionante del progetto
 ## Task programmate:
 
 - [x] Visualizzazione dati per provincia
-- [ ] Visualizzazione dati per regione
+- [x] Visualizzazione dati per regione
 - [ ] Visualizzazione dati nazionali
 - [ ] Visualizzazione grafici per provincia
 - [ ] Visualizzazione grafici per regione
