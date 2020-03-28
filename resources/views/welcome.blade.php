@@ -3,11 +3,11 @@
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title m-b-md">
+<div class="title m-b-md text-center">
     {{ env('APP_NAME')}}
 </div>
 
-<div class="links">
+<div class="links text-center">
     <a href="{{route('regions')}}">Regioni</a>
     <a href="{{route('provinces')}}">Province</a>
     <a href="https://github.com/ElCresh/Covid19-Statistics">GitHub</a>

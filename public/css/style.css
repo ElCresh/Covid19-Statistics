@@ -4,7 +4,6 @@ html, body {
     font-family: 'Nunito', sans-serif;
     height: 100vh;
     margin: 0;
-    text-align: center;
 }
 
 .full-height {
@@ -27,12 +26,8 @@ html, body {
     top: 18px;
 }
 
-.content {
-    text-align: center;
-}
-
 .title {
-    font-size: 84px;
+    font-size: 60px;
 }
 
 .links > a {

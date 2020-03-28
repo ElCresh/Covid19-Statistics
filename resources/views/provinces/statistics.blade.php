@@ -6,15 +6,12 @@
 
 
 <div class="row">
-    <div class="col">
+    <div class="col-sm-7 mb-4">
         <div class="title">
-            {{ config('app.name')}} <br />
-        </div>
-        <div class="h1 mb-4">
             {{ $province->denominazione_provincia }} ({{ $province->sigla_provincia }})
         </div>
     </div>
-    <div class="col">
+    <div class="col-sm-5">
         <div class="card text-white bg-dark mb-3 float-right">
             <div class="card-body">
                 <h5 class="card-title">Dettagli:</h5>
@@ -31,7 +28,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <table class="table">
+        <table class="table text-center">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Data</th>

@@ -7,9 +7,6 @@
 <div class="row">
     <div class="col">
         <div class="title">
-            {{ config('app.name')}} <br />
-        </div>
-        <div class="h1 mb-4">
             {{ $region->denominazione_regione }}
         </div>
     </div>
@@ -28,7 +25,7 @@
 
 <div class="row">
     <div class="col">
-        <table class="table">
+        <table class="table text-center">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Data</th>
