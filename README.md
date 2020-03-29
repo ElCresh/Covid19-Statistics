@@ -12,10 +12,10 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 
 - [x] Visualizzazione dati per provincia
 - [x] Visualizzazione dati per regione
-- [ ] Visualizzazione dati nazionali
+- [x] Visualizzazione dati nazionali
 - [x] Visualizzazione grafici per provincia
 - [x] Visualizzazione grafici per regione
-- [ ] Visualizzazione grafici nazionali
+- [x] Visualizzazione grafici nazionali
 - [x] Pubblicazione piattaforma per la consultazione dei dati
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
