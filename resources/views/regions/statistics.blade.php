@@ -45,86 +45,99 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col">
-        <table class="table text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Ricoverati con sintomi</th>
-                    <th scope="col">Terapia intensiva</th>
-                    <th scope="col">Totale ospedalizzati</th>
-                    <th scope="col">Isolamento domicilare</th>
-                    <th scope="col">Totale attualmente positivi</th>
-                    <th scope="col">Nuovi casi positivi</th>
-                    <th scope="col">Dimessi</th>
-                    <th scope="col">Deceduti</th>
-                    <th scope="col">Totale casi</th>
-                    <th scope="col">Tamponi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($datas as $data)
-                    @php
-                        $date = new Carbon($data->data);
-                    @endphp
-                    <tr>
-                        <th scope="row">{{ $date->toDateString() }}</th>
-                        <td>{{ $data->ricoverati_con_sintomi }}</td>
-                        <td>{{ $data->terapia_intensiva }}</td>
-                        <td>{{ $data->totale_ospedalizzati }}</td>
-                        <td>{{ $data->isolamento_domiciliare }}</td>
-                        <td>{{ $data->totale_attualmente_positivi }}</td>
-                        <td>{{ $data->nuovi_attualmente_positivi }}</td>
-                        <td>{{ $data->dimessi_guariti }}</td>
-                        <td>{{ $data->deceduti }}</td>
-                        <td>{{ $data->totale_casi }}</td>
-                        <td>{{ $data->tamponi }}</td>
-                    </tr>
-                    <script>
-                        differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
-                        casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
-                        casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
-                        casi_deceduti.push({{ $data->deceduti }});
-                        casi_totali.push({{ $data->totale_casi }});
-
-                        casi_ospedalizzati.push({{ $data->totale_ospedalizzati }});
-                        casi_isolamento_domestico.push({{ $data->isolamento_domiciliare }});
-
-                        ospedali_ricoverati_sintomi.push({{ $data->ricoverati_con_sintomi }});
-                        ospedali_terapia_intensiva.push({{ $data->terapia_intensiva }});
-
-                        tamponi.push({{ $data->tamponi }});
-
-                        labels.push('{{ $date->toDateString() }}');
-                    </script>
-                @endforeach
-            </tbody>
-        </table>
+<ul class="nav nav-tabs mb-2" id="tabs-menu" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="home" aria-selected="true">Dati</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab" aria-controls="profile" aria-selected="false">Grafici</a>
+    </li>
+</ul>
+<div class="tab-content mb-2" id="tabs-content">
+    <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
+        <div class="row">
+            <div class="col">
+                <table class="table text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Ricoverati con sintomi</th>
+                            <th scope="col">Terapia intensiva</th>
+                            <th scope="col">Totale ospedalizzati</th>
+                            <th scope="col">Isolamento domicilare</th>
+                            <th scope="col">Totale attualmente positivi</th>
+                            <th scope="col">Nuovi casi positivi</th>
+                            <th scope="col">Dimessi</th>
+                            <th scope="col">Deceduti</th>
+                            <th scope="col">Totale casi</th>
+                            <th scope="col">Tamponi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($datas as $data)
+                            @php
+                                $date = new Carbon($data->data);
+                            @endphp
+                            <tr>
+                                <th scope="row">{{ $date->toDateString() }}</th>
+                                <td>{{ $data->ricoverati_con_sintomi }}</td>
+                                <td>{{ $data->terapia_intensiva }}</td>
+                                <td>{{ $data->totale_ospedalizzati }}</td>
+                                <td>{{ $data->isolamento_domiciliare }}</td>
+                                <td>{{ $data->totale_attualmente_positivi }}</td>
+                                <td>{{ $data->nuovi_attualmente_positivi }}</td>
+                                <td>{{ $data->dimessi_guariti }}</td>
+                                <td>{{ $data->deceduti }}</td>
+                                <td>{{ $data->totale_casi }}</td>
+                                <td>{{ $data->tamponi }}</td>
+                            </tr>
+                            <script>
+                                differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
+                                casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
+                                casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
+                                casi_deceduti.push({{ $data->deceduti }});
+                                casi_totali.push({{ $data->totale_casi }});
+        
+                                casi_ospedalizzati.push({{ $data->totale_ospedalizzati }});
+                                casi_isolamento_domestico.push({{ $data->isolamento_domiciliare }});
+        
+                                ospedali_ricoverati_sintomi.push({{ $data->ricoverati_con_sintomi }});
+                                ospedali_terapia_intensiva.push({{ $data->terapia_intensiva }});
+        
+                                tamponi.push({{ $data->tamponi }});
+        
+                                labels.push('{{ $date->toDateString() }}');
+                            </script>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6">
-        <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <canvas id="casiDimessiGuaritiGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <canvas id="divisioneCasiAttualiGrafico" width="400" height="200"></canvas>
-    </div>
-    <div class="col-sm-12">
-        <canvas id="tamponiGrafico" width="400" height="100"></canvas>
+    <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
+        <div class="row">
+            <div class="col-sm-6">
+                <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="casiDimessiGuaritiGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="divisioneCasiAttualiGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="tamponiGrafico" width="400" height="100"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
