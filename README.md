@@ -17,6 +17,7 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 - [x] Visualizzazione grafici per regione
 - [x] Visualizzazione grafici nazionali
 - [x] Pubblicazione piattaforma per la consultazione dei dati
+- [ ] Gestione note correlate ai rilevamenti
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
 ## Link utili
