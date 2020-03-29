@@ -43,3 +43,12 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+
+.spinner-bing{
+    height: 5rem;
+    width: 5rem;
+}
+
+.text-light{
+    color: #ffffff !important;
+}

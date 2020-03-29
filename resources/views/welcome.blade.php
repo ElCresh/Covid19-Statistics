@@ -7,23 +7,23 @@
     {{ config('app.name')}}
 </div>
 
+<div class="text-center mb-5">
+    <div class="spinner-grow spinner-bing text-success" role="status">
+        <span class="sr-only">GREEN</span>
+    </div>
+    <div class="spinner-grow spinner-bing text-light ml-2" role="status">
+        <span class="sr-only">WHITE</span>
+    </div>
+    <div class="spinner-grow spinner-bing text-danger ml-2" role="status">
+        <span class="sr-only">RED</span>
+    </div>
+</div>
+
 <div class="links text-center">
     <a href="{{route('nation.statistics',['sigla' => 'ita'])}}">Nazione</a>
     <a href="{{route('regions')}}">Regioni</a>
     <a href="{{route('provinces')}}">Province</a>
     <a href="https://github.com/ElCresh/Covid19-Statistics">GitHub</a>
 </div>
-{{--
-    <div class="links">
-        <a href="https://laravel.com/docs">Docs</a>
-        <a href="https://laracasts.com">Laracasts</a>
-        <a href="https://laravel-news.com">News</a>
-        <a href="https://blog.laravel.com">Blog</a>
-        <a href="https://nova.laravel.com">Nova</a>
-        <a href="https://forge.laravel.com">Forge</a>
-        <a href="https://vapor.laravel.com">Vapor</a>
-        <a href="https://github.com/laravel/laravel">GitHub</a>
-    </div>
---}}
 
 @endsection
