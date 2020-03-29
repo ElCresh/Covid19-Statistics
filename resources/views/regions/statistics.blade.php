@@ -129,6 +129,24 @@
 </div>
 
 <script>
+    // Reversing arrays because data from DB are DESC ordered
+    differenza_giorno_precedente.reverse();
+    casi_positivi_attuali.reverse();
+    casi_dimessi_guariti.reverse();
+    casi_deceduti.reverse();
+    casi_totali.reverse();
+
+    casi_ospedalizzati.reverse();
+    casi_isolamento_domestico.reverse();
+
+    ospedali_ricoverati_sintomi.reverse();
+    ospedali_terapia_intensiva.reverse();
+
+    tamponi.reverse();
+
+    labels.reverse();
+    //--
+
     $(document).ready(() => {
         var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
         var myLineChart = new Chart(casiTotaliGrafico, {

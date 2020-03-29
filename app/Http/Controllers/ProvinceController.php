@@ -8,7 +8,7 @@ class ProvinceController extends Controller
 {
     public function statistics($sigla){
         $province = DB::table('province_datas')->where('sigla_provincia',$sigla)->first();
-        $datas = DB::table('province_datas')->where('sigla_provincia',$sigla)->orderBy('data')->get();
+        $datas = DB::table('province_datas')->where('sigla_provincia',$sigla)->orderBy('data','DESC')->get();
 
         return view('provinces.statistics',['province' => $province, 'datas' => $datas]);
     }

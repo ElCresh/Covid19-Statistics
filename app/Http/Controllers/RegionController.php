@@ -8,7 +8,7 @@ class RegionController extends Controller
 {
     public function statistics($sigla){
         $region = DB::table('region_datas')->where('codice_regione',$sigla)->first();
-        $datas = DB::table('region_datas')->where('codice_regione',$sigla)->orderBy('data')->get();
+        $datas = DB::table('region_datas')->where('codice_regione',$sigla)->orderBy('data','DESC')->get();
 
         return view('regions.statistics',['region' => $region, 'datas' => $datas]);
     }

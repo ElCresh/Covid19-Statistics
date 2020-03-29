@@ -49,10 +49,15 @@
                 @php
                     $prec_giorno = 0;
                 @endphp
-                @foreach($datas as $data)
+                @foreach($datas as $index => $data)
                     @php
+                        if($index < ($datas->count() - 1)){
+                            $prec_giorno = $datas[$index + 1]->totale_casi;
+                        }else{
+                            $prec_giorno = 0;
+                        }
+
                         $diff = $data->totale_casi - $prec_giorno;
-                        $prec_giorno = $data->totale_casi;
 
                         $date = new Carbon($data->data);
                     @endphp
@@ -77,6 +82,12 @@
 </div>
 
 <script>
+    // Reversing arrays because data from DB are DESC ordered
+    differenza_giorno_precedente.reverse();
+    casi_totali.reverse();
+    labels.reverse();
+    //--
+
     $(document).ready(() => {
         var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
         var myLineChart = new Chart(casiTotaliGrafico, {
