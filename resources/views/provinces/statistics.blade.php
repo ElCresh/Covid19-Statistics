@@ -4,6 +4,15 @@
 {{---------------Content---------------}}
 @section('content')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
+<script>
+    var casi_totali = [];
+    var differenza_giorno_precedente = [];
+    var labels = [];
+</script>
 
 <div class="row">
     <div class="col-sm-7 mb-4">
@@ -44,17 +53,79 @@
                     @php
                         $diff = $data->totale_casi - $prec_giorno;
                         $prec_giorno = $data->totale_casi;
+
+                        $date = new Carbon($data->data);
                     @endphp
                     <tr>
-                        <th scope="row">{{ $data->data }}</th>
+                        <th scope="row">{{ $date->toDateString() }}</th>
                         <td>{{ $data->totale_casi }}</td>
                         <td>{{ $diff }}</td>
                     </tr>
+                    <script>
+                        differenza_giorno_precedente.push({{ $diff }});
+                        casi_totali.push({{ $data->totale_casi }});
+                        labels.push('{{ $date->toDateString() }}');
+                    </script>
                 @endforeach
             </tbody>
         </table>
     </div>
-    <div class="col-md-8"></div>
+    <div class="col-md-8">
+        <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
+        <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
+    </div>
 </div>
+
+<script>
+    $(document).ready(() => {
+        var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
+        var myLineChart = new Chart(casiTotaliGrafico, {
+            type: 'line',
+            fill: false,
+            data:{
+                labels: labels,
+                datasets: [{
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    fill: false,
+                    data: casi_totali,
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Casi totali'
+                },
+            }
+        });
+
+        var differenzaGiorPrecGrafico = document.getElementById('differenzaGiorPrecGrafico');
+        var myLineChart = new Chart(differenzaGiorPrecGrafico, {
+            type: 'line',
+            fill: false,
+            data:{
+                labels: labels,
+                datasets: [{
+                    backgroundColor: 'rgb(255, 159, 64)',
+                    borderColor: 'rgb(255, 159, 64)',
+                    fill: false,
+                    data: differenza_giorno_precedente,
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Differenza giorno precedente'
+                },
+            }
+        });
+    });
+</script>
 
 @endsection

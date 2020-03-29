@@ -14,11 +14,13 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
+    
+    <script src="{{ asset('js/script.js') }}"></script>
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
