@@ -71,6 +71,7 @@
                             <th scope="col">Deceduti</th>
                             <th scope="col">Totale casi</th>
                             <th scope="col">Tamponi</th>
+                            <th scope="col">Note</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,6 +91,23 @@
                                 <td>{{ $data->deceduti }}</td>
                                 <td>{{ $data->totale_casi }}</td>
                                 <td>{{ $data->tamponi }}</td>
+                                <td>
+                                    @if ($data->note_it != '')
+                                        @foreach(explode(';',$data->note_it) as $note_id)
+                                            @php
+                                                $note = DB::table('notes')->where('codice',$note_id)->first();
+                                                if(!is_null($note)){
+                                                    $title = $note->codice;
+                                                    $text = $note->avviso;
+                                                    if($note->note != ''){
+                                                        $text .="<br /><br /><b>Note:</b><br />".$note->note;
+                                                    }
+                                                }
+                                            @endphp
+                                            <span class="badge badge-pill badge-warning" onClick="generateNotificaiton('{{ $title }}', '{{ $text }}')">{{ $note->codice }}</span>
+                                        @endforeach
+                                    @endif
+                                </td>
                             </tr>
                             <script>
                                 differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});

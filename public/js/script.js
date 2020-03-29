@@ -7,3 +7,12 @@ chartColors = {
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(201, 203, 207)'
 };
+
+function generateNotificaiton(title,body){
+    $(document).Toasts('create', {
+        title: title,
+        body: body,
+        position: 'bottomRight',
+        class: 'm-4'
+    })
+}
