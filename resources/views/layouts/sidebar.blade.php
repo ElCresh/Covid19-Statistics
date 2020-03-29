@@ -12,6 +12,14 @@
                 <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                 <li class="nav-item">
+                    <a href="{{ route('nation.statistics',['sigla' => 'ita']) }}" class="nav-link">
+                        <i class="nav-icon fas fa-map"></i>
+                        <p>
+                            Nazione
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('regions') }}" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
                         <p>
