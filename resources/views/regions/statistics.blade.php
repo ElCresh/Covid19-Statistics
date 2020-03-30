@@ -47,10 +47,10 @@
 
 <ul class="nav nav-tabs mb-2" id="tabs-menu" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="home" aria-selected="true">Dati</a>
+        <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="home" aria-selected="true">{{ __('statistics.data') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab" aria-controls="profile" aria-selected="false">Grafici</a>
+        <a class="nav-link" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab" aria-controls="profile" aria-selected="false">{{ __('statistics.graphs') }}</a>
     </li>
 </ul>
 <div class="tab-content mb-2" id="tabs-content">
