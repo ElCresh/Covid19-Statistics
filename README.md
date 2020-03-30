@@ -9,8 +9,7 @@ Scopo ulteriori è quello di mantenere online una copia funzionante del progetto
 Sito Consultabile: https://covid19.andreacrescentini.com/
 
 ## Task programmate:
-- [ ] Dismissione dati provenienti dagli OpenData UE
-- [ ] Raccolta dati provenienti dal Johns Hopkins University Center for Systems Science and Engineering
+
 
 ## Task completate:
 
@@ -24,6 +23,8 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 - [x] Gestione note correlate ai rilevamenti
 - [x] Raccolta dati provenienti dagli OpenData UE
 - [x] Raccolta dati provenienti dall'ISS - Repubblica di San Marino
+- [x] Dismissione dati provenienti dagli OpenData UE
+- [x] Raccolta dati provenienti dal Johns Hopkins University Center for Systems Science and Engineering
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
 ## Link utili
