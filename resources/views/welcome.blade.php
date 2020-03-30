@@ -3,7 +3,11 @@
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title m-b-md text-center">
+<div class="title m-b-md text-center d-none d-sm-block">
+    {{ config('app.name')}}
+</div>
+
+<div class="h2 m-b-md text-center d-block d-sm-none">
     {{ config('app.name')}}
 </div>
 

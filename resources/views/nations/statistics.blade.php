@@ -45,7 +45,7 @@
 <div class="tab-content mb-2" id="tabs-content">
     <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
         <div class="row">
-            <div class="col">
+            <div class="col table-responsive">
                 <table class="table text-center">
                     <thead class="thead-dark">
                         <tr>

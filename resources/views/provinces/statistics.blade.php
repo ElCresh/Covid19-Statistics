@@ -36,7 +36,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 table-responsive">
         <table class="table text-center">
             <thead class="thead-dark">
                 <tr>
