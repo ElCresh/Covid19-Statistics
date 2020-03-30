@@ -14,16 +14,19 @@ class CreateNationDatasTable extends Migration
     public function up()
     {
         Schema::create('nation_datas', function (Blueprint $table) {
-            $table->date('dateRep');
-            $table->integer('day');
-            $table->integer('month');
-            $table->integer('year');
-            $table->integer('cases');
+            $table->integer('fips');
+            $table->string('admin2');
+            $table->string('province_state');
+            $table->string('country_region');
+            $table->dateTime('last_update');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->integer('confirmed');
             $table->integer('deaths');
-            $table->string('countriesAndTerritories');
-            $table->string('geoId');
-            $table->string('countryterritoryCode');
-            $table->integer('popData2018');
+            $table->integer('recovered');
+            $table->integer('active');
+            $table->string('combined_key');
+            
         });
     }
 

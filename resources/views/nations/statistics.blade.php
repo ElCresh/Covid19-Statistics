@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col">
         <div class="title">
-            {{ str_replace('_',' ',$stato->countriesAndTerritories) }}
+            {{ $stato->country_region }} {{ ($stato->province_state != '') ? '('.$stato->province_state.')' : '' }}
         </div>
     </div>
 </div>
@@ -48,28 +48,31 @@
                     <tbody>
                         @foreach($datas as $index => $data)
                             @php
-                                $date = new Carbon($data->year."/".$data->month."/".$data->day);
+                                $date = new Carbon($data->last_update);
 
                                 if($index < ($datas->count() - 1)){
-                                    $prec_giorno = $datas[$index + 1]->cases;
+                                    $prec_giorno = $datas[$index + 1]->confirmed;
                                 }else{
-                                    $prec_giorno = 0;
+                                    // Making starting difference to 0 becuase
+                                    // csv format are inconsistent and not all
+                                    // history is loaded on db
+                                    $prec_giorno = $data->confirmed;
                                 }
         
-                                $diff = $data->cases - $prec_giorno;
+                                $diff = $data->confirmed - $prec_giorno;
                             @endphp
                             <tr>
-                                <th scope="row">{{ $date->toDateString() }}</th>
-                                <td>{{ $data->cases }}</td>
+                                <th scope="row">{{ $date }}</th>
+                                <td>{{ $data->confirmed }}</td>
                                 <td>{{ $diff }}</td>
                                 <td>{{ $data->deaths }}</td>
                             </tr>
                             <script>
                                 differenza_giorno_precedente.push({{ $diff }});
                                 casi_deceduti.push({{ $data->deaths }});
-                                casi_totali.push({{ $data->cases }});
+                                casi_totali.push({{ $data->confirmed }});
 
-                                labels.push('{{ $date->toDateString() }}');
+                                labels.push('{{ $date }}');
                             </script>
                         @endforeach
                     </tbody>

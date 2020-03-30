@@ -21,9 +21,28 @@ class NationController extends Controller
         return view('nations.statistics_smr',['stato' => $stato, 'datas' => $datas]);
     }
 
+    public function provinces($sigla){
+        $provinces = DB::table('nation_datas')->where('country_region',$sigla)->groupBy('province_state')->orderBy('province_state')->get();
+
+        return view('nations.provinces',['provinces' => $provinces]);
+    }
+
     public function statistics($sigla){
-        $stato = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->first();
-        $datas = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->orderBy('year','DESC')->orderBy('month','DESC')->orderBy('day','DESC')->get();
+        $stato = DB::table('nation_datas')->where('country_region',$sigla)->first();
+        $datas = DB::table('nation_datas')->where('country_region',$sigla)->orderBy('last_update','DESC')->get();
+
+
+        return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
+    }
+
+    public function province_statistics($sigla,$province){
+        if($province == '_'){
+            $stato = DB::table('nation_datas')->where('country_region',$sigla)->where('province_state','')->first();
+            $datas = DB::table('nation_datas')->where('country_region',$sigla)->where('province_state','')->orderBy('last_update','DESC')->get();
+        }else{
+            $stato = DB::table('nation_datas')->where('province_state',$province)->first();
+            $datas = DB::table('nation_datas')->where('province_state',$province)->orderBy('last_update','DESC')->get();
+        }
 
 
         return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);

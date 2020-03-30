@@ -8,9 +8,13 @@
 </div>
 
 <div class="text-center links">
-    @foreach(DB::table('nation_datas')->groupBy('countryterritoryCode')->orderBy('countriesAndTerritories')->get() as $nation)
-        @if ($nation->countryterritoryCode != '')        
-            <a href="{{ route('nation.statistics', ['sigla' => $nation->countryterritoryCode]) }}">{{ str_replace('_',' ',$nation->countriesAndTerritories) }} ({{ $nation->countryterritoryCode }})</a> <br />
+    @foreach(DB::table('nation_datas')->groupBy('country_region')->orderBy('country_region')->get() as $nation)
+        @if ($nation->country_region != '')
+            @if ($nation->province_state != '')
+                <a href="{{ route('nation.provinces', ['sigla' => $nation->country_region]) }}">{{ str_replace('_',' ',$nation->country_region) }}</a> <br />
+            @else
+                <a href="{{ route('nation.statistics', ['sigla' => $nation->country_region]) }}">{{ str_replace('_',' ',$nation->country_region) }}</a> <br />
+            @endif
         @endif
     @endforeach
 </div>

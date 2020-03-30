@@ -47,10 +47,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://data.europa.eu/euodp/it/data/dataset/covid-19-coronavirus-data/resource/260bbbde-2316-40eb-aec3-7cd7bfc2f590" target="_blank" class="nav-link">
+                    <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
-                            OpenData UE
+                            Johns Hopkins CSSE
                         </p>
                     </a>
                 </li>
