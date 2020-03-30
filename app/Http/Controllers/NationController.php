@@ -14,6 +14,13 @@ class NationController extends Controller
         return view('nations.statistics_italy',['stato' => $stato, 'datas' => $datas]);
     }
 
+    public function statistics_smr(){
+        $stato = null;
+        $datas = DB::table('rsm_datas')->orderBy('data','DESC')->get();
+
+        return view('nations.statistics_smr',['stato' => $stato, 'datas' => $datas]);
+    }
+
     public function statistics($sigla){
         $stato = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->first();
         $datas = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->orderBy('year','DESC')->orderBy('month','DESC')->orderBy('day','DESC')->get();

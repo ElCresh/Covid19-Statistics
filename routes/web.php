@@ -23,4 +23,5 @@ Route::get('/provinces/{sigla}', 'ProvinceController@statistics')->name('provinc
 
 Route::view('/nations', 'nations.list')->name('nations');
 Route::get('/nations/ITA', 'NationController@statistics_italy')->name('nation.statistics');
+Route::get('/nations/SMR', 'NationController@statistics_smr')->name('nation.statistics');
 Route::get('/nations/{sigla}', 'NationController@statistics')->name('nation.statistics');
