@@ -9,6 +9,10 @@ Scopo ulteriori è quello di mantenere online una copia funzionante del progetto
 Sito Consultabile: https://covid19.andreacrescentini.com/
 
 ## Task programmate:
+- [ ] Dismissione dati provenienti dagli OpenData UE
+- [ ] Raccolta dati provenienti dal Johns Hopkins University Center for Systems Science and Engineering
+
+## Task completate:
 
 - [x] Visualizzazione dati per provincia
 - [x] Visualizzazione dati per regione
@@ -19,13 +23,13 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 - [x] Pubblicazione piattaforma per la consultazione dei dati
 - [x] Gestione note correlate ai rilevamenti
 - [x] Raccolta dati provenienti dagli OpenData UE
-- [ ] Raccolta dati provenienti dall'ISS - Repubblica di San Marino
+- [x] Raccolta dati provenienti dall'ISS - Repubblica di San Marino
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
 ## Link utili
 * **Laravel** (Framework) https://laravel.com/
 * **pcm-dpc/COVID-19** (Dati Protezione Civile) https://github.com/pcm-dpc/COVID-19 
-* **Opendata UE - COVID-19** https://data.europa.eu/euodp/it/data/dataset/covid-19-coronavirus-data/resource/260bbbde-2316-40eb-aec3-7cd7bfc2f590
 * **TinBòta - Dati Coronavirus (RSM)** https://tinbota.github.io/
-* **TinBòta - Dati Coronavirus Grezzu (RSM)** https://docs.google.com/spreadsheets/d/1pP3Vm07F9gOLb_wMt0FmGjAc_edELXXEgA-a31PCvHs/edit#gid=0
+* **Johns Hopkins University Center for Systems Science and Engineering** https://github.com/CSSEGISandData/COVID-19
 * ~~**ondata/covid19italia**~(Conversione machine readable dati PDF) https://github.com/ondata/covid19italia~~ (dati non più generati)
+* ~~**Opendata UE - COVID-19** https://data.europa.eu/euodp/it/data/dataset/covid-19-coronavirus-data/resource/260bbbde-2316-40eb-aec3-7cd7bfc2f590~~ (dati troppo discostati dalla realtà. necessaria nuova fonte)
