@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNationDatasTable extends Migration
+class CreateItalyDatasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateNationDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('nation_datas', function (Blueprint $table) {
+        Schema::create('italy_datas', function (Blueprint $table) {
             $table->dateTimeTz('data');
             $table->string('stato');
             $table->integer('ricoverati_con_sintomi');
@@ -38,6 +38,6 @@ class CreateNationDatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nation_datas');
+        Schema::dropIfExists('italy_datas');
     }
 }
