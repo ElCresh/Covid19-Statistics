@@ -24,9 +24,9 @@
 </div>
 
 <div class="links text-center">
-    <a href="{{route('nation.statistics',['sigla' => 'ita'])}}">Nazione</a>
-    <a href="{{route('regions')}}">Regioni</a>
-    <a href="{{route('provinces')}}">Province</a>
+    <a href="{{route('nations')}}">{{__('sidebar.nations')}}</a>
+    <a href="{{route('regions')}}">{{__('sidebar.regions')}}</a>
+    <a href="{{route('provinces')}}">{{__('sidebar.provinces')}}</a>
     <a href="https://github.com/ElCresh/Covid19-Statistics">GitHub</a>
 </div>
 

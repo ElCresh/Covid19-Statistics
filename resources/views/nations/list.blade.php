@@ -8,7 +8,7 @@
 </div>
 
 <div class="text-center links">
-    @foreach(DB::table('nation_datas')->groupBy('countryterritoryCode')->get() as $nation)
+    @foreach(DB::table('nation_datas')->groupBy('countryterritoryCode')->orderBy('countriesAndTerritories')->get() as $nation)
         @if ($nation->countryterritoryCode != '')        
             <a href="{{ route('nation.statistics', ['sigla' => $nation->countryterritoryCode]) }}">{{ str_replace('_',' ',$nation->countriesAndTerritories) }} ({{ $nation->countryterritoryCode }})</a> <br />
         @endif
