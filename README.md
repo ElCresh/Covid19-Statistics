@@ -18,9 +18,11 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 - [x] Visualizzazione grafici nazionali
 - [x] Pubblicazione piattaforma per la consultazione dei dati
 - [x] Gestione note correlate ai rilevamenti
+- [ ] Raccolta dati provenienti dagli OpenData UE
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
 ## Link utili
 * **Laravel** (Framework) https://laravel.com/
 * **pcm-dpc/COVID-19** (Dati Protezione Civile) https://github.com/pcm-dpc/COVID-19 
 * ~~**ondata/covid19italia**~(Conversione machine readable dati PDF) https://github.com/ondata/covid19italia~~ (dati non più generati)
+* **Opendata UE - COVID-19** https://data.europa.eu/euodp/it/data/dataset/covid-19-coronavirus-data/resource/260bbbde-2316-40eb-aec3-7cd7bfc2f590
