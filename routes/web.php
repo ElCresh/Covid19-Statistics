@@ -18,8 +18,11 @@ Route::get('/', function () {
 });
 
 Route::view('/regions', 'regions.list')->name('regions');
-Route::view('/provinces', 'provinces.list')->name('provinces');
-Route::get('/nations/ita', 'NationController@statistics_italy')->name('nation.statistics');
-Route::get('/nations/{sigla}', 'NationController@statistics')->name('nation.statistics');
-Route::get('/provinces/{sigla}', 'ProvinceController@statistics')->name('province.statistics');
 Route::get('/regions/{sigla}', 'RegionController@statistics')->name('region.statistics');
+
+Route::view('/provinces', 'provinces.list')->name('provinces');
+Route::get('/provinces/{sigla}', 'ProvinceController@statistics')->name('province.statistics');
+
+Route::view('/nations', 'nations.list')->name('nations');
+Route::get('/nations/ITA', 'NationController@statistics_italy')->name('nation.statistics');
+Route::get('/nations/{sigla}', 'NationController@statistics')->name('nation.statistics');

@@ -15,8 +15,9 @@ class NationController extends Controller
     }
 
     public function statistics($sigla){
-        $stato = DB::table('nation_datas')->where('stato',$sigla)->first();
-        $datas = DB::table('nation_datas')->where('stato',$sigla)->orderBy('data','DESC')->get();
+        $stato = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->first();
+        $datas = DB::table('nation_datas')->where('countryterritoryCode',$sigla)->orderBy('year','DESC')->orderBy('month','DESC')->orderBy('day','DESC')->get();
+
 
         return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
     }

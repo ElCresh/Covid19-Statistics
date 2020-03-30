@@ -11,14 +11,16 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
+                <li class="nav-header">Mondo</li>
                 <li class="nav-item">
-                    <a href="{{ route('nation.statistics',['sigla' => 'ita']) }}" class="nav-link">
+                    <a href="{{ route('nations') }}" class="nav-link">
                         <i class="nav-icon fas fa-globe-europe"></i>
                         <p>
-                            Nazione
+                            Nazioni
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">Italia</li>
                 <li class="nav-item">
                     <a href="{{ route('regions') }}" class="nav-link">
                         <i class="nav-icon fas fa-map-marked-alt"></i>
@@ -35,6 +37,7 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">Altro</li>
                 <li class="nav-item">
                     <a href="https://github.com/ElCresh/Covid19-Statistics" target="_blank" class="nav-link">
                         <i class="nav-icon fab fa-github"></i>

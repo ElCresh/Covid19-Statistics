@@ -18,7 +18,7 @@ Sito Consultabile: https://covid19.andreacrescentini.com/
 - [x] Visualizzazione grafici nazionali
 - [x] Pubblicazione piattaforma per la consultazione dei dati
 - [x] Gestione note correlate ai rilevamenti
-- [ ] Raccolta dati provenienti dagli OpenData UE
+- [x] Raccolta dati provenienti dagli OpenData UE
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 
 ## Link utili

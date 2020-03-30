@@ -10,18 +10,8 @@
 
 <script>
     var differenza_giorno_precedente = [];
-    var casi_positivi_attuali = [];
-    var casi_dimessi_guariti = [];
     var casi_deceduti = [];
     var casi_totali = [];
-
-    var casi_ospedalizzati = [];
-    var casi_isolamento_domestico = [];
-
-    var ospedali_ricoverati_sintomi = [];
-    var ospedali_terapia_intensiva = [];
-
-    var tamponi = [];
 
     var labels = [];
 </script>
@@ -29,7 +19,7 @@
 <div class="row">
     <div class="col">
         <div class="title">
-            Italia
+            {{ str_replace('_',' ',$stato->countriesAndTerritories) }}
         </div>
     </div>
 </div>
@@ -50,51 +40,35 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Data</th>
-                            <th scope="col">Ricoverati con sintomi</th>
-                            <th scope="col">Terapia intensiva</th>
-                            <th scope="col">Totale ospedalizzati</th>
-                            <th scope="col">Isolamento domicilare</th>
-                            <th scope="col">Totale attualmente positivi</th>
-                            <th scope="col">Nuovi casi positivi</th>
-                            <th scope="col">Dimessi</th>
+                            <th scope="col">Casi</th>
+                            <th scope="col">Diff. prec. gior.</th>
                             <th scope="col">Deceduti</th>
-                            <th scope="col">Totale casi</th>
-                            <th scope="col">Tamponi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($datas as $data)
+                        @foreach($datas as $index => $data)
                             @php
-                                $date = new Carbon($data->data);
+                                $date = new Carbon($data->year."/".$data->month."/".$data->day);
+
+                                if($index < ($datas->count() - 1)){
+                                    $prec_giorno = $datas[$index + 1]->cases;
+                                }else{
+                                    $prec_giorno = 0;
+                                }
+        
+                                $diff = $data->cases - $prec_giorno;
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date->toDateString() }}</th>
-                                <td>{{ $data->ricoverati_con_sintomi }}</td>
-                                <td>{{ $data->terapia_intensiva }}</td>
-                                <td>{{ $data->totale_ospedalizzati }}</td>
-                                <td>{{ $data->isolamento_domiciliare }}</td>
-                                <td>{{ $data->totale_attualmente_positivi }}</td>
-                                <td>{{ $data->nuovi_attualmente_positivi }}</td>
-                                <td>{{ $data->dimessi_guariti }}</td>
-                                <td>{{ $data->deceduti }}</td>
-                                <td>{{ $data->totale_casi }}</td>
-                                <td>{{ $data->tamponi }}</td>
+                                <td>{{ $data->cases }}</td>
+                                <td>{{ $diff }}</td>
+                                <td>{{ $data->deaths }}</td>
                             </tr>
                             <script>
-                                differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
-                                casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
-                                casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
-                                casi_deceduti.push({{ $data->deceduti }});
-                                casi_totali.push({{ $data->totale_casi }});
-        
-                                casi_ospedalizzati.push({{ $data->totale_ospedalizzati }});
-                                casi_isolamento_domestico.push({{ $data->isolamento_domiciliare }});
-        
-                                ospedali_ricoverati_sintomi.push({{ $data->ricoverati_con_sintomi }});
-                                ospedali_terapia_intensiva.push({{ $data->terapia_intensiva }});
-        
-                                tamponi.push({{ $data->tamponi }});
-        
+                                differenza_giorno_precedente.push({{ $diff }});
+                                casi_deceduti.push({{ $data->deaths }});
+                                casi_totali.push({{ $data->cases }});
+
                                 labels.push('{{ $date->toDateString() }}');
                             </script>
                         @endforeach
@@ -133,18 +107,8 @@
 <script>
     // Reversing arrays because data from DB are DESC ordered
     differenza_giorno_precedente.reverse();
-    casi_positivi_attuali.reverse();
-    casi_dimessi_guariti.reverse();
     casi_deceduti.reverse();
     casi_totali.reverse();
-
-    casi_ospedalizzati.reverse();
-    casi_isolamento_domestico.reverse();
-
-    ospedali_ricoverati_sintomi.reverse();
-    ospedali_terapia_intensiva.reverse();
-
-    tamponi.reverse();
 
     labels.reverse();
     //--
@@ -157,18 +121,20 @@
             data:{
                 labels: labels,
                 datasets: [{
-                    label: 'Casi totali',
                     backgroundColor: chartColors.purple,
                     borderColor: chartColors.purple,
                     fill: false,
                     data: casi_totali,
-                },{
-                    label: 'Casi positivi attuali',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: casi_positivi_attuali,
                 }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Casi positivi'
+                },
             }
         });
 
@@ -219,99 +185,7 @@
                 },
             }
         });
-
-        var casiDimessiGuaritiGrafico = document.getElementById('casiDimessiGuaritiGrafico');
-        var myLineChart = new Chart(casiDimessiGuaritiGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_dimessi_guariti,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Dimessi guariti'
-                },
-            }
-        });
-
-        var statoOspedaliGrafico = document.getElementById('statoOspedaliGrafico');
-        var myLineChart = new Chart(statoOspedaliGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Ricoverati con sintomi',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: ospedali_ricoverati_sintomi,
-                },{
-                    label: 'Terapia intensiva',
-                    backgroundColor: chartColors.red,
-                    borderColor: chartColors.red,
-                    fill: false,
-                    data: ospedali_terapia_intensiva,
-                }]
-            }
-        });
-
-        var divisioneCasiAttualiGrafico = document.getElementById('divisioneCasiAttualiGrafico');
-        var myLineChart = new Chart(divisioneCasiAttualiGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Casi ospedalizzati',
-                    backgroundColor: chartColors.purple,
-                    borderColor: chartColors.purple,
-                    fill: false,
-                    data: casi_ospedalizzati,
-                },{
-                    label: 'Casi isolamento domestico',
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_isolamento_domestico,
-                }]
-            }
-        });
     });
-
-    var tamponiGrafico = document.getElementById('tamponiGrafico');
-        var myLineChart = new Chart(tamponiGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.grey,
-                    borderColor: chartColors.grey,
-                    fill: false,
-                    data: tamponi,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Tamponi'
-                },
-            }
-        });
 </script>
 
 @endsection
