@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome')->name('home');
 
 Route::view('/regions', 'regions.list')->name('regions');
 Route::get('/regions/{sigla}', 'RegionController@statistics')->name('region.statistics');

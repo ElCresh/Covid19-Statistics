@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="title text-center">
-    Nazioni:
+    {{ __('sidebar.nations') }}:
 </div>
 
 <div class="text-center links">
