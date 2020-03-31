@@ -25,6 +25,7 @@ class CreateRegionDatasTable extends Migration
             $table->integer('totale_ospedalizzati');
             $table->integer('isolamento_domiciliare');
             $table->integer('totale_attualmente_positivi');
+            $table->integer('variazione_totale_positivi');
             $table->integer('nuovi_attualmente_positivi');
             $table->integer('dimessi_guariti');
             $table->integer('deceduti');
