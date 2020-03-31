@@ -51,6 +51,8 @@
                 @endphp
                 @foreach($datas as $index => $data)
                     @php
+                        $date = new Carbon($data->data);
+
                         if($index < ($datas->count() - 1)){
                             $prec_giorno = $datas[$index + 1]->totale_casi;
                         }else{
@@ -59,14 +61,31 @@
 
                         $diff = $data->totale_casi - $prec_giorno;
 
-                        $date = new Carbon($data->data);
+                        // diff lookahead for progression
+                        if($index < ($datas->count() - 2)){
+                            $prec_giorno_ahead = $datas[$index + 2]->totale_casi;
+                        }else{
+                            $prec_giorno_ahead = 0;
+                        }
+
+                        $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
+                        //--
                     @endphp
                     <tr>
                         <th scope="row">{{ $date->toDateString() }}</th>
                         <td>{{ $data->totale_casi }}</td>
-                        <td>{{ $diff }}</td>
+                        <td>
+                            @if ($diff_lookahead > $diff)
+                                <span class="badge badge-success">{{ $diff }}</span>
+                            @elseif ($diff_lookahead < $diff)
+                                <span class="badge badge-danger">{{ $diff }}</span>
+                            @else
+                                <span class="badge badge-secondary">{{ $diff }}</span>
+                            @endif
+                        </td>
                     </tr>
                     <script>
+                        // Saving data for charts
                         differenza_giorno_precedente.push({{ $diff }});
                         casi_totali.push({{ $data->totale_casi }});
                         labels.push('{{ $date->toDateString() }}');
@@ -82,13 +101,19 @@
 </div>
 
 <script>
-    // Reversing arrays because data from DB are DESC ordered
-    differenza_giorno_precedente.reverse();
-    casi_totali.reverse();
-    labels.reverse();
-    //--
-
     $(document).ready(() => {
+        // Reversing arrays because data from DB are DESC ordered
+        reverseDataArrays();
+        drawGraphs();
+    });
+
+    function reverseDataArrays(){
+        differenza_giorno_precedente.reverse();
+        casi_totali.reverse();
+        labels.reverse();
+    }
+
+    function drawGraphs(){
         var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
         var myLineChart = new Chart(casiTotaliGrafico, {
             type: 'line',
@@ -136,7 +161,7 @@
                 },
             }
         });
-    });
+    }
 </script>
 
 @endsection

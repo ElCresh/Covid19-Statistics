@@ -63,9 +63,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($datas as $data)
+                        @foreach($datas as $index =>$data)
                             @php
                                 $date = new Carbon($data->data);
+
+                                $diff = $data->nuovi_attualmente_positivi;
+
+                                // diff lookahead for progression
+                                if($index < ($datas->count() - 1)){
+                                    $diff_lookahead = $datas[$index + 1]->nuovi_attualmente_positivi;
+                                }else{
+                                    $diff_lookahead = 0;
+                                }
+                                //--
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date->toDateString() }}</th>
@@ -74,13 +84,22 @@
                                 <td>{{ $data->totale_ospedalizzati }}</td>
                                 <td>{{ $data->isolamento_domiciliare }}</td>
                                 <td>{{ $data->totale_attualmente_positivi }}</td>
-                                <td>{{ $data->nuovi_attualmente_positivi }}</td>
+                                <td>
+                                    @if ($diff_lookahead > $diff)
+                                        <span class="badge badge-success">{{ $diff }}</span>
+                                    @elseif ($diff_lookahead < $diff)
+                                        <span class="badge badge-danger">{{ $diff }}</span>
+                                    @else
+                                        <span class="badge badge-secondary">{{ $diff }}</span>
+                                    @endif
+                                </td>
                                 <td>{{ $data->dimessi_guariti }}</td>
                                 <td>{{ $data->deceduti }}</td>
                                 <td>{{ $data->totale_casi }}</td>
                                 <td>{{ $data->tamponi }}</td>
                             </tr>
                             <script>
+                                // Saving data for charts
                                 differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
                                 casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
                                 casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
@@ -131,25 +150,31 @@
 </div>
 
 <script>
-    // Reversing arrays because data from DB are DESC ordered
-    differenza_giorno_precedente.reverse();
-    casi_positivi_attuali.reverse();
-    casi_dimessi_guariti.reverse();
-    casi_deceduti.reverse();
-    casi_totali.reverse();
-
-    casi_ospedalizzati.reverse();
-    casi_isolamento_domestico.reverse();
-
-    ospedali_ricoverati_sintomi.reverse();
-    ospedali_terapia_intensiva.reverse();
-
-    tamponi.reverse();
-
-    labels.reverse();
-    //--
-
     $(document).ready(() => {
+        // Reversing arrays because data from DB are DESC ordered
+        reverseDataArrays();
+        drawGraphs();
+    });
+
+    function reverseDataArrays(){
+        differenza_giorno_precedente.reverse();
+        casi_positivi_attuali.reverse();
+        casi_dimessi_guariti.reverse();
+        casi_deceduti.reverse();
+        casi_totali.reverse();
+
+        casi_ospedalizzati.reverse();
+        casi_isolamento_domestico.reverse();
+
+        ospedali_ricoverati_sintomi.reverse();
+        ospedali_terapia_intensiva.reverse();
+
+        tamponi.reverse();
+
+        labels.reverse();
+    }
+
+    function drawGraphs(){
         var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
         var myLineChart = new Chart(casiTotaliGrafico, {
             type: 'line',
@@ -287,9 +312,8 @@
                 }]
             }
         });
-    });
 
-    var tamponiGrafico = document.getElementById('tamponiGrafico');
+        var tamponiGrafico = document.getElementById('tamponiGrafico');
         var myLineChart = new Chart(tamponiGrafico, {
             type: 'line',
             fill: false,
@@ -312,6 +336,8 @@
                 },
             }
         });
+    }
+        
 </script>
 
 @endsection

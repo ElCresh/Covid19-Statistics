@@ -53,21 +53,37 @@
                                 if($index < ($datas->count() - 1)){
                                     $prec_giorno = $datas[$index + 1]->confirmed;
                                 }else{
-                                    // Making starting difference to 0 becuase
-                                    // csv format are inconsistent and not all
-                                    // history is loaded on db
-                                    $prec_giorno = $data->confirmed;
+                                    $prec_giorno = 0;
                                 }
-        
+
                                 $diff = $data->confirmed - $prec_giorno;
+
+                                // diff lookahead for progression
+                                if($index < ($datas->count() - 2)){
+                                    $prec_giorno_ahead = $datas[$index + 2]->confirmed;
+                                }else{
+                                    $prec_giorno_ahead = 0;
+                                }
+
+                                $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
+                                //--
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date }}</th>
                                 <td>{{ $data->confirmed }}</td>
-                                <td>{{ $diff }}</td>
+                                <td>
+                                    @if ($diff_lookahead > $diff)
+                                        <span class="badge badge-success">{{ $diff }}</span>
+                                    @elseif ($diff_lookahead < $diff)
+                                        <span class="badge badge-danger">{{ $diff }}</span>
+                                    @else
+                                        <span class="badge badge-secondary">{{ $diff }}</span>
+                                    @endif
+                                </td>
                                 <td>{{ $data->deaths }}</td>
                             </tr>
                             <script>
+                                // Saving data for charts
                                 differenza_giorno_precedente.push({{ $diff }});
                                 casi_deceduti.push({{ $data->deaths }});
                                 casi_totali.push({{ $data->confirmed }});
@@ -108,15 +124,22 @@
 </div>
 
 <script>
-    // Reversing arrays because data from DB are DESC ordered
-    differenza_giorno_precedente.reverse();
-    casi_deceduti.reverse();
-    casi_totali.reverse();
 
-    labels.reverse();
-    //--
+$(document).ready(() => {
+        // Reversing arrays because data from DB are DESC ordered
+        reverseDataArrays();
+        drawGraphs();
+    });
 
-    $(document).ready(() => {
+    function reverseDataArrays(){
+        differenza_giorno_precedente.reverse();
+        casi_deceduti.reverse();
+        casi_totali.reverse();
+
+        labels.reverse();
+    }
+
+    function drawGraphs(){
         var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
         var myLineChart = new Chart(casiTotaliGrafico, {
             type: 'line',
@@ -188,7 +211,7 @@
                 },
             }
         });
-    });
+    }
 </script>
 
 @endsection
