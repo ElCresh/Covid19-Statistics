@@ -41,7 +41,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Data</th>
-                    <th scope="col">Casi totali</th>
+                    <th scope="col">Totale casi</th>
                     <th scope="col">Diff. prec. gior.</th>
                 </tr>
             </thead>

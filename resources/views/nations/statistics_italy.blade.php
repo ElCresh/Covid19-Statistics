@@ -50,16 +50,16 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Data</th>
-                            <th scope="col">Ricoverati con sintomi</th>
-                            <th scope="col">Terapia intensiva</th>
+                            <th scope="col">Totale ricoverati con sintomi</th>
+                            <th scope="col">Totale terapia intensiva</th>
                             <th scope="col">Totale ospedalizzati</th>
-                            <th scope="col">Isolamento domicilare</th>
-                            <th scope="col">Totale attualmente positivi</th>
+                            <th scope="col">Totale isolamento domicilare</th>
+                            <th scope="col">Attualmente positivi</th>
                             <th scope="col">Nuovi casi positivi</th>
-                            <th scope="col">Dimessi</th>
-                            <th scope="col">Deceduti</th>
+                            <th scope="col">Totale dimessi</th>
+                            <th scope="col">Totale deceduti</th>
                             <th scope="col">Totale casi</th>
-                            <th scope="col">Tamponi</th>
+                            <th scope="col">Totale tamponi</th>
                         </tr>
                     </thead>
                     <tbody>

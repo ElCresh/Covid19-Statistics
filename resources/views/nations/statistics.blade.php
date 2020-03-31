@@ -39,10 +39,10 @@
                 <table class="table text-center">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Data</th>
-                            <th scope="col">Casi</th>
-                            <th scope="col">Diff. prec. gior.</th>
-                            <th scope="col">Deceduti</th>
+                            <th scope="col">{{ __('statistics.date') }}</th>
+                            <th scope="col">{{ __('statistics.total_case') }}</th>
+                            <th scope="col">{{ __('statistics.difference_previous_day_short') }}</th>
+                            <th scope="col">{{ __('statistics.total_deaths') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,7 +136,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Casi positivi'
+                    text: '{{ __('statistics.total_case') }}'
                 },
             }
         });
@@ -160,7 +160,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Differenza giorno precedente'
+                    text: '{{ __('statistics.difference_previous_day') }}'
                 },
             }
         });
@@ -184,7 +184,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Deceduti'
+                    text: '{{ __('statistics.total_deaths') }}'
                 },
             }
         });
