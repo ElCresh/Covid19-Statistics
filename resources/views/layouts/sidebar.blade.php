@@ -22,6 +22,14 @@
                 </li>
                 <li class="nav-header">{{__('sidebar.italy')}}</li>
                 <li class="nav-item">
+                    <a href="{{ route('nation.statistics', ['sigla' => 'Italy']) }}" class="nav-link">
+                        <i class="nav-icon fas fa-globe-europe"></i>
+                        <p>
+                            {{__('sidebar.global')}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('regions') }}" class="nav-link">
                         <i class="nav-icon fas fa-map-marked-alt"></i>
                         <p>
@@ -34,6 +42,15 @@
                         <i class="nav-icon fas fa-city"></i>
                         <p>
                             {{__('sidebar.provinces')}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-header">Repubblica di San Marino</li>
+                <li class="nav-item">
+                    <a href="{{ route('nation.statistics', ['sigla' => 'San Marino']) }}" class="nav-link">
+                        <i class="nav-icon fas fa-globe-europe"></i>
+                        <p>
+                            {{__('sidebar.global')}}
                         </p>
                     </a>
                 </li>
