@@ -19,7 +19,11 @@
 <div class="row">
     <div class="col">
         <div class="title">
-            {{ $stato->country_region }} {{ ($stato->province_state != '') ? '('.$stato->province_state.')' : '' }}
+            @if ($stato->province_state != '')
+                {{ $stato->province_state }} ({{ $stato->country_region }})
+            @else
+                {{ $stato->country_region }}
+            @endif
         </div>
     </div>
 </div>
