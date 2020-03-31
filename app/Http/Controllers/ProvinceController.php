@@ -10,6 +10,10 @@ class ProvinceController extends Controller
         $province = DB::table('province_datas')->where('sigla_provincia',$sigla)->first();
         $datas = DB::table('province_datas')->where('sigla_provincia',$sigla)->orderBy('data','DESC')->get();
 
-        return view('provinces.statistics',['province' => $province, 'datas' => $datas]);
+        if(!is_null($province) && !is_null($datas)){
+            return view('provinces.statistics',['province' => $province, 'datas' => $datas]);
+        }else{
+            return abort('404',"Not found");
+        }
     }
 }

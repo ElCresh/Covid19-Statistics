@@ -10,6 +10,10 @@ class RegionController extends Controller
         $region = DB::table('region_datas')->where('codice_regione',$sigla)->first();
         $datas = DB::table('region_datas')->where('codice_regione',$sigla)->orderBy('data','DESC')->get();
 
-        return view('regions.statistics',['region' => $region, 'datas' => $datas]);
+        if(!is_null($region) && !is_null($datas)){
+            return view('regions.statistics',['region' => $region, 'datas' => $datas]);
+        }else{
+            return abort('404',"Not found");
+        }
     }
 }

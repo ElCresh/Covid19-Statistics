@@ -24,15 +24,22 @@ class NationController extends Controller
     public function provinces($sigla){
         $provinces = DB::table('nation_datas')->where('country_region',$sigla)->groupBy('province_state')->orderBy('province_state')->get();
 
-        return view('nations.provinces',['provinces' => $provinces]);
+        if($provinces->count() > 0){
+            return view('nations.provinces',['provinces' => $provinces]);
+        }else{
+            return abort('404',"Not found");
+        }
     }
 
     public function statistics($sigla){
         $stato = DB::table('nation_datas')->where('country_region',$sigla)->first();
         $datas = DB::table('nation_datas')->where('country_region',$sigla)->orderBy('last_update','DESC')->get();
 
-
-        return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
+        if(!is_null($stato) && !is_null($datas)){
+            return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
+        }else{
+            return abort('404',"Not found");
+        }
     }
 
     public function province_statistics($sigla,$province){
@@ -44,7 +51,12 @@ class NationController extends Controller
             $datas = DB::table('nation_datas')->where('province_state',$province)->orderBy('last_update','DESC')->get();
         }
 
+        if(!is_null($stato) && !is_null($datas)){
+            return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
+        }else{
+            return abort('404',"Not found");
+        }
 
-        return view('nations.statistics',['stato' => $stato, 'datas' => $datas]);
+
     }
 }
