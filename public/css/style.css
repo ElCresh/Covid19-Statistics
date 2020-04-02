@@ -52,3 +52,16 @@ html, body {
 .text-light{
     color: #ffffff !important;
 }
+
+.small-box {
+    font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    border-radius: .25rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+}
