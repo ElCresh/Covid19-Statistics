@@ -51,9 +51,9 @@ Link disabled to reduce home lenght
             <h4>Italia</h4>
         </div>
         @php
-            $datas = DB::table('italy_datas')->where('stato','ita')->orderBy('data','DESC')->get();
-
-            if(!empty($datas)){
+            $datas = DB::table('italy_datas')->where('stato','ita')->orderBy('data','DESC')->get();            
+            
+            if($datas->count() != 0){
                 // diff lookahead for progression
                 if($datas->count() < 2){
                     $diff_lookahead = $datas[0]->nuovi_attualmente_positivi;
@@ -112,7 +112,7 @@ Link disabled to reduce home lenght
         @php
             $datas = DB::table('rsm_datas')->orderBy('data','DESC')->get();
 
-            if(!empty($datas)){
+            if($datas->count() != 0){
                 // diff lookahead for progression
                 if($datas->count() < 2){
                     $diff_lookahead = $datas[0]->nuovi_casi;
@@ -176,8 +176,8 @@ Link disabled to reduce home lenght
                 </div>
                 @php
                     $datas = DB::table('nation_datas')->where('province_state',$sigla[0])->where('country_region',$sigla[1])->orderBy('last_update','DESC')->get();
-
-                    if(!empty($datas)){
+                    
+                    if($datas->count() != 0){
                         // diff lookahead for progression
                         if($datas->count() > 2){
                             $prec_giorno = $datas[1]->confirmed;
