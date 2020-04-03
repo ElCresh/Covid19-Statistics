@@ -19,8 +19,13 @@ class CreateRsmDatasTable extends Migration
             $table->integer('totale_casi');
             $table->integer('nuovi_casi');
             $table->integer('malati');
+            $table->integer('nuovi_malati');
+            $table->integer('malati_maschi');
+            $table->integer('malati_femmine');
             $table->integer('guariti');
+            $table->integer('nuovi_guariti');
             $table->integer('decessi');
+            $table->integer('nuovi_decessi');
             $table->integer('decessi_maschi');
             $table->integer('decessi_femmine');
             $table->integer('ricoverati');

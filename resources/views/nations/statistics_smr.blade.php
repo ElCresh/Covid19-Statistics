@@ -54,10 +54,12 @@
                             <th scope="col">Totale terapia intensiva</th>
                             <th scope="col">Totale degenze</th>
                             <th scope="col">Totale isolamento domicilare</th>
+                            <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale attualmente positivi</th>
                             <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale dimessi</th>
-                            <th scope="col">Totale deceduti</th>
+                            <th scope="col">Nuovi decessi</th>
+                            <th scope="col">Totale decessi</th>
                             <th scope="col">Totale casi</th>
                             <th scope="col">Totale tamponi</th>
                         </tr>
@@ -95,7 +97,12 @@
                                     <i class="text-primary small">{{ $data->domicilio_maschi }}</i>
                                     <i class="text-fuchsia small">{{ $data->domicilio_femmine }}</i>
                                 </td>
-                                <td>{{ $data->malati }}</td>
+                                <td>{{ $data->nuovi_malati }}</td>
+                                <td>
+                                    {{ $data->malati }}<br />
+                                    <i class="text-primary small">{{ $data->malati_maschi }}</i>
+                                    <i class="text-fuchsia small">{{ $data->malati_femmine }}</i>
+                                </td>
                                 <td>
                                     @if ($diff_lookahead > $diff)
                                         <span class="badge badge-success">{{ $diff }}</span>
@@ -106,6 +113,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $data->guariti }}</td>
+                                <td>{{ $data->nuovi_decessi }}</td>
                                 <td>
                                     {{ $data->decessi }}<br />
                                     <i class="text-primary small">{{ $data->decessi_maschi }}</i>
