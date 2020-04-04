@@ -163,8 +163,15 @@ Link disabled to reduce home lenght
             </a>
         </div>
     </div>
-    {{-- Other Nations Dashboard --}}
-    @foreach ([['Hubei','China'],['','Germany'],['','Spain'],['','France']] as $sigla)
+    {{-- 
+        = Other Nations Dashboard =
+        
+        Array Composition:
+        [0] => Province (if needed)
+        [1] => Nation
+        [2] => Province id for route
+    --}}
+    @foreach ([['Hubei','China','Hubei'],['','Germany',''],['','Spain',''],['','France','_']] as $sigla)
         <div class="col-sm-4"> 
             <div class="mb-3">
                 <div class="text-center">
@@ -204,6 +211,12 @@ Link disabled to reduce home lenght
                         $total_positive = "?";
                     }
                     //--
+
+                    if($sigla[2] != ''){
+                        $url = route('nation.province.statistics', ['sigla' => $sigla[1], 'province' => $sigla[2]]);
+                    }else{
+                        $url = route('nation.statistics', ['sigla' => $sigla[1]]);
+                    }
                 @endphp
 
                 @if ($diff_lookahead > $diff)
@@ -229,7 +242,7 @@ Link disabled to reduce home lenght
                             <i class="fas fa-pills"></i>
                         @endif
                     </div>
-                    <a href="{{ route('nation.statistics', ['sigla' => $sigla[1]]) }}" class="small-box-footer">
+                    <a href="{{ $url }}" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
