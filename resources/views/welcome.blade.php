@@ -86,7 +86,7 @@ Link disabled to reduce home lenght
             <div class="inner">
                 <h3>{{ $total_positive }}</h3>
                 <p>
-                    Casi totali<br />
+                    Casi attuali<br />
                     {{ $value }} nuovi casi
                 </p>
             </div>
@@ -145,7 +145,7 @@ Link disabled to reduce home lenght
             <div class="inner">
                 <h3>{{ $total_positive }}</h3>
                 <p>
-                    Casi totali<br />
+                    Casi attuali<br />
                     {{ $value }} nuovi casi
                 </p>
             </div>
