@@ -40,6 +40,9 @@ class CreateRsmDatasTable extends Migration
             $table->integer('domicilio_femmine');
             $table->integer('dimissioni');
             $table->integer('tamponi');
+            $table->integer('tamponi_positivi');
+            $table->integer('tamponi_negativi');
+            $table->integer('tamponi_in_attesa');
             $table->integer('quarantene');
             $table->integer('quarantene_attive');
             $table->integer('quarantene_attive_laici');
