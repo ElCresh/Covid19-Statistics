@@ -87,7 +87,7 @@
                 @elseif ($diff_lookahead < $diff)
                     <i class="fas fa-chevron-up""></i>
                 @else
-                    <i class="fas fa-pills"></i>
+                    <i class="fas fa-minus"></i>
                 @endif
             </div>
             <a href="{{ route('nation.statistics', ['sigla' => 'Italy']) }}" class="small-box-footer">
@@ -146,7 +146,7 @@
                 @elseif ($diff_lookahead < $diff)
                     <i class="fas fa-chevron-up""></i>
                 @else
-                    <i class="fas fa-pills"></i>
+                    <i class="fas fa-minus"></i>
                 @endif
             </div>
             <a href="{{ route('nation.statistics', ['sigla' => 'San Marino']) }}" class="small-box-footer">
@@ -230,7 +230,7 @@
                         @elseif ($diff_lookahead < $diff)
                             <i class="fas fa-chevron-up""></i>
                         @else
-                            <i class="fas fa-pills"></i>
+                            <i class="fas fa-minus"></i>
                         @endif
                     </div>
                     <a href="{{ $url }}" class="small-box-footer">
