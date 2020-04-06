@@ -2,11 +2,11 @@
 
 ## Dettagli Progetto:
 
-Lo scopo del progetto è quello di creare un inferfaccia di visualizzazione completa dei dati resi a disposizione dalla Protezione Civile mediante formato CSV/JSON. Si vuole anche creare i grafici per i dati e le loro elaborazioni più comuni.
+Lo scopo del progetto è quello di creare un inferfaccia di visualizzazione completa dei dati resi a disposizione dalla Protezione Civile, ISS Repubblica di San Marino e Johns Hopkins University Center for Systems Science and Engineering mediante formato CSV. Si vuole anche creare grafici completi per i dati e le loro elaborazioni più comuni.
 
 Scopo ulteriori è quello di mantenere online una copia funzionante del progetto con dati aggiornati quotidianamente fino al termine dell'attuale emergenza. Tale punto si realizzaerà quando si ritterrà la piattaforma sufficientemente matura. 
 
-Sito Consultabile: https://covid19.andreacrescentini.com/
+Sito Consultabile: https://covid19.andreacrescentini.com/ e https://covid19.notiosoft.com/
 
 ## Task programmate:
 
