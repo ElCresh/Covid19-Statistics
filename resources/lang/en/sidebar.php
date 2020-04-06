@@ -7,5 +7,6 @@
         'italy' => 'Italy',
         'data_source' => "Data source",
         'global' => 'Global',
+        'more_info' => 'More info',
         'other' => 'Other',
     ];

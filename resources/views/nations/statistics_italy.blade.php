@@ -10,6 +10,7 @@
 
 <script>
     var differenza_giorno_precedente = [];
+    var variazione_totale_positivi = [];
     var casi_positivi_attuali = [];
     var casi_dimessi_guariti = [];
     var casi_deceduti = [];
@@ -55,6 +56,7 @@
                             <th scope="col">Totale ospedalizzati</th>
                             <th scope="col">Totale isolamento domicilare</th>
                             <th scope="col">Attualmente positivi</th>
+                            <th scope="col">Variazione del totale positivi</th>
                             <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale dimessi</th>
                             <th scope="col">Totale deceduti</th>
@@ -84,6 +86,7 @@
                                 <td>{{ $data->totale_ospedalizzati }}</td>
                                 <td>{{ $data->isolamento_domiciliare }}</td>
                                 <td>{{ $data->totale_attualmente_positivi }}</td>
+                                <td>{{ $data->variazione_totale_positivi }}</td>
                                 <td>
                                     @if ($diff_lookahead > $diff)
                                         <span class="badge badge-success">{{ $diff }}</span>
@@ -101,6 +104,7 @@
                             <script>
                                 // Saving data for charts
                                 differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
+                                variazione_totale_positivi.push({{ $data->variazione_totale_positivi }});
                                 casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
                                 casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
                                 casi_deceduti.push({{ $data->deceduti }});
@@ -131,19 +135,22 @@
                 <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
+                <canvas id="variazioneTotalePositiviGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
                 <canvas id="casiDimessiGuaritiGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
+                <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
                 <canvas id="divisioneCasiAttualiGrafico" width="400" height="200"></canvas>
             </div>
-            <div class="col-sm-12">
-                <canvas id="tamponiGrafico" width="400" height="100"></canvas>
+            <div class="col-sm-6">
+                <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="tamponiGrafico" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
@@ -158,6 +165,7 @@
 
     function reverseDataArrays(){
         differenza_giorno_precedente.reverse();
+        variazione_totale_positivi.reverse();
         casi_positivi_attuali.reverse();
         casi_dimessi_guariti.reverse();
         casi_deceduti.reverse();
@@ -217,6 +225,30 @@
                 title: {
                     display: true,
                     text: 'Differenza giorno precedente'
+                },
+            }
+        });
+
+        var variazioneTotalePositiviGrafico = document.getElementById('variazioneTotalePositiviGrafico');
+        var myLineChart = new Chart(variazioneTotalePositiviGrafico, {
+            type: 'line',
+            fill: false,
+            data:{
+                labels: labels,
+                datasets: [{
+                    backgroundColor: chartColors.orange,
+                    borderColor: chartColors.orange,
+                    fill: false,
+                    data: variazione_totale_positivi,
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Variazione del totale positivi'
                 },
             }
         });

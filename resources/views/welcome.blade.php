@@ -100,7 +100,7 @@ Link disabled to reduce home lenght
                 @endif
             </div>
             <a href="{{ route('nation.statistics', ['sigla' => 'Italy']) }}" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
+                {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -159,7 +159,7 @@ Link disabled to reduce home lenght
                 @endif
             </div>
             <a href="{{ route('nation.statistics', ['sigla' => 'San Marino']) }}" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
+                {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -243,7 +243,7 @@ Link disabled to reduce home lenght
                         @endif
                     </div>
                     <a href="{{ $url }}" class="small-box-footer">
-                        More info <i class="fas fa-arrow-circle-right"></i>
+                        {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>

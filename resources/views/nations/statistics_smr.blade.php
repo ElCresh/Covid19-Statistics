@@ -54,7 +54,7 @@
                             <th scope="col">Totale terapia intensiva</th>
                             <th scope="col">Totale degenze</th>
                             <th scope="col">Totale isolamento domicilare</th>
-                            <th scope="col">Nuovi casi positivi</th>
+                            <th scope="col">Nuovi malati</th>
                             <th scope="col">Totale attualmente positivi</th>
                             <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale dimessi</th>
