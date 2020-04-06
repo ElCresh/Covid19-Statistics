@@ -3,15 +3,27 @@
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title m-b-md text-center d-none d-sm-block">
-    {{ config('app.name')}}
+<div class="title text-center m-b-md d-none d-sm-block">
+    <div class="row">
+        <img class="col-sm-4" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        <div class="col-sm-8">
+            <span class="align-middle">
+                {{ config('app.name')}}
+            </span>
+        </div>
+    </div>
 </div>
 
 <div class="h1 m-b-md text-center d-block d-sm-none">
-    {{ config('app.name')}}
+    <div class="row">
+        <img class="col-sm-4 mb-3" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        <div class="col-sm-8">
+            {{ config('app.name')}}
+        </div>
+    </div>
 </div>
 
-<div class="text-center mb-5">
+<div class="text-center mb-4">
     <div class="spinner-grow spinner-bing text-success" role="status">
         <span class="sr-only">GREEN</span>
     </div>
@@ -22,28 +34,7 @@
         <span class="sr-only">RED</span>
     </div>
 </div>
-{{--
 
-Link disabled to reduce home lenght
-
-<div class="row">
-    <div class="col-sm-4 links text-center mb-4">
-        <h3>{{__('sidebar.world')}}</h3>
-        <a href="{ {route('nations')}}">{{__('sidebar.nations') }}</a>
-    </div>
-    <div class="col-sm-4 links text-center mb-4">
-        <h3>{{__('sidebar.italy')}}</h3>
-        <a href="{{ route('nation.statistics', ['sigla' => 'Italy']) }}">{{__('sidebar.global') }}</a><br />
-        <a href="{{ route('regions')}}">{{__('sidebar.regions') }}</a><br />
-        <a href="{{ route('provinces')}}">{{__('sidebar.provinces') }}</a>
-    </div>
-    <div class="col-sm-4 links text-center mb-4">
-        <h3>Repubblica di San Marino</h3>
-        <a href="{{ route('nation.statistics', ['sigla' => 'San Marino']) }}">{{__('sidebar.global')}}</a>
-    </div>
-</div>
-
---}}
 <div class="row">
     {{-- Italy Dashboard --}}
     <div class="col-sm-4">
@@ -249,6 +240,10 @@ Link disabled to reduce home lenght
             </div>
         </div>
     @endforeach
+</div>
+
+<div class="text-center mb-3">
+    Dati provenienti dalla Protezione Civile per l'Italia, ISS per Repubblica di San Marino e Johns Hopkins CSSE per il resto del mondo.
 </div>
 
 @endsection
