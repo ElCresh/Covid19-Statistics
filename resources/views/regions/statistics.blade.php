@@ -10,6 +10,7 @@
 
 <script>
     var differenza_giorno_precedente = [];
+    var variazione_totale_positivi = [];
     var casi_positivi_attuali = [];
     var casi_dimessi_guariti = [];
     var casi_deceduti = [];
@@ -66,6 +67,7 @@
                             <th scope="col">Totale ospedalizzati</th>
                             <th scope="col">Totale isolamento domicilare</th>
                             <th scope="col">Attualmente positivi</th>
+                            <th scope="col">Variazione del totale positivi</th>
                             <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale dimessi</th>
                             <th scope="col">Totale deceduti</th>
@@ -96,6 +98,7 @@
                                 <td>{{ $data->totale_ospedalizzati }}</td>
                                 <td>{{ $data->isolamento_domiciliare }}</td>
                                 <td>{{ $data->totale_attualmente_positivi }}</td>
+                                <td>{{ $data->variazione_totale_positivi }}</td>
                                 <td>
                                     @if ($diff_lookahead > $diff)
                                         <span class="badge badge-success">{{ $diff }}</span>
@@ -130,6 +133,7 @@
                             <script>
                                 // Saving data for charts
                                 differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
+                                variazione_totale_positivi.push({{ $data->variazione_totale_positivi }});
                                 casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
                                 casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
                                 casi_deceduti.push({{ $data->deceduti }});
@@ -154,25 +158,22 @@
     <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
         <div class="row">
             <div class="col-sm-6">
-                <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
+                <canvas id="grph_1_1" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
+                <canvas id="grph_1_2" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
+                <canvas id="grph_2_1" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="casiDimessiGuaritiGrafico" width="400" height="200"></canvas>
+                <canvas id="grph_2_2" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
+                <canvas id="grph_3_1" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="divisioneCasiAttualiGrafico" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="tamponiGrafico" width="400" height="100"></canvas>
+                <canvas id="grph_3_2" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
@@ -204,8 +205,8 @@
     }
 
     function drawGraphs(){
-        var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
-        var myLineChart = new Chart(casiTotaliGrafico, {
+        var grph_1_1 = document.getElementById('grph_1_1');
+        var myLineChart = new Chart(grph_1_1, {
             type: 'line',
             fill: false,
             data:{
@@ -226,102 +227,52 @@
             }
         });
 
-        var differenzaGiorPrecGrafico = document.getElementById('differenzaGiorPrecGrafico');
-        var myLineChart = new Chart(differenzaGiorPrecGrafico, {
+        var grph_1_2 = document.getElementById('grph_1_2');
+        var myLineChart = new Chart(grph_1_2, {
             type: 'line',
             fill: false,
             data:{
                 labels: labels,
                 datasets: [{
+                    label: 'Variazione nuovi positivi',
                     backgroundColor: chartColors.orange,
                     borderColor: chartColors.orange,
                     fill: false,
                     data: differenza_giorno_precedente,
+                },{
+                    label: 'Variazione del totale positivi',
+                    backgroundColor: chartColors.green,
+                    borderColor: chartColors.green,
+                    fill: false,
+                    data: variazione_totale_positivi,
                 }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Differenza giorno precedente'
-                },
             }
         });
 
-        var casiPositiviAttualiGrafico = document.getElementById('casiPositiviAttualiGrafico');
-        var myLineChart = new Chart(casiPositiviAttualiGrafico, {
+        var grph_2_1 = document.getElementById('grph_2_1');
+        var myLineChart = new Chart(grph_2_1, {
             type: 'line',
             fill: false,
             data:{
                 labels: labels,
                 datasets: [{
+                    label: 'Dimessi guariti',
+                    backgroundColor: chartColors.green,
+                    borderColor: chartColors.green,
+                    fill: false,
+                    data: casi_dimessi_guariti,
+                },{
+                    label: 'Deceduti',
                     backgroundColor: chartColors.red,
                     borderColor: chartColors.red,
                     fill: false,
                     data: casi_deceduti,
                 }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Deceduti'
-                },
             }
         });
 
-        var casiDimessiGuaritiGrafico = document.getElementById('casiDimessiGuaritiGrafico');
-        var myLineChart = new Chart(casiDimessiGuaritiGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_dimessi_guariti,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Dimessi guariti'
-                },
-            }
-        });
-
-        var statoOspedaliGrafico = document.getElementById('statoOspedaliGrafico');
-        var myLineChart = new Chart(statoOspedaliGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Ricoverati con sintomi',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: ospedali_ricoverati_sintomi,
-                },{
-                    label: 'Terapia intensiva',
-                    backgroundColor: chartColors.red,
-                    borderColor: chartColors.red,
-                    fill: false,
-                    data: ospedali_terapia_intensiva,
-                }]
-            }
-        });
-
-        var divisioneCasiAttualiGrafico = document.getElementById('divisioneCasiAttualiGrafico');
-        var myLineChart = new Chart(divisioneCasiAttualiGrafico, {
+        var grph_2_2 = document.getElementById('grph_2_2');
+        var myLineChart = new Chart(grph_2_2, {
             type: 'line',
             fill: false,
             data:{
@@ -342,8 +293,30 @@
             }
         });
 
-        var tamponiGrafico = document.getElementById('tamponiGrafico');
-        var myLineChart = new Chart(tamponiGrafico, {
+        var grph_3_1 = document.getElementById('grph_3_1');
+        var myLineChart = new Chart(grph_3_1, {
+            type: 'line',
+            fill: false,
+            data:{
+                labels: labels,
+                datasets: [{
+                    label: 'Ricoverati con sintomi',
+                    backgroundColor: chartColors.yellow,
+                    borderColor: chartColors.yellow,
+                    fill: false,
+                    data: ospedali_ricoverati_sintomi,
+                },{
+                    label: 'Terapia intensiva',
+                    backgroundColor: chartColors.red,
+                    borderColor: chartColors.red,
+                    fill: false,
+                    data: ospedali_terapia_intensiva,
+                }]
+            }
+        });
+
+        var grph_3_2 = document.getElementById('grph_3_2');
+        var myLineChart = new Chart(grph_3_2, {
             type: 'line',
             fill: false,
             data:{
