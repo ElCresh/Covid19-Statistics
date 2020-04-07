@@ -5,7 +5,9 @@
 
 <div class="title text-center m-b-md d-none d-sm-block">
     <div class="row">
-        <img class="col-sm-4" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        <div class="col-sm-4">
+            <img class="img-fluid" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        </div>
         <div class="col-sm-8">
             <span class="align-middle">
                 {{ config('app.name')}}
@@ -16,7 +18,9 @@
 
 <div class="h1 m-b-md text-center d-block d-sm-none">
     <div class="row">
-        <img class="col-sm-4 mb-3" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        <div class="col-sm-4 mb-3">
+            <img class="img-fluid" src="{{ asset('imgs/logo-notiosoft.png') }}" />
+        </div>
         <div class="col-sm-8">
             {{ config('app.name')}}
         </div>
