@@ -7,6 +7,6 @@
         'italy' => 'Italia',
         'data_source' => "Fonte dati",
         'global' => 'Globali',
-        'more_info' => 'Maggiori inforazioni',
+        'more_info' => 'Maggiori informazioni',
         'other' => 'Altro',
     ];
