@@ -36,13 +36,11 @@
             </ul>
 
             {{-- Right navbar links --}}
-            {{--
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="" class="nav-link">Upload</a>
+                    <a href="{{ route('contact') }}" class="nav-link">{{ __('sidebar.more_on_project') }}</a>
                 </li>
             </ul>
-            --}}
         </nav>
 
         @include('layouts.sidebar')

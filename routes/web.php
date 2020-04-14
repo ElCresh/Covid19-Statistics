@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+Route::view('/contact', 'contact')->name('contact');
+Route::post('/contact/send', 'MailController@send')->name('contact_submit');
 
 Route::view('/regions', 'regions.list')->name('regions');
 Route::get('/regions/{sigla}', 'RegionController@statistics')->name('region.statistics');

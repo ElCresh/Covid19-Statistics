@@ -8,5 +8,6 @@
         'data_source' => "Fonte dati",
         'global' => 'Globali',
         'more_info' => 'Maggiori informazioni',
+        'more_on_project' => 'Vuoi saperne di più sul progetto?',
         'other' => 'Altro',
     ];
