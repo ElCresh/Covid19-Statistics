@@ -23,6 +23,10 @@ class MailController extends Controller
         );
 
         Mail::to(env('MAIL_CONTACT_FORM'))->send(new ContactMail($data));
+        if(env('MAIL_CONTACT_FORM_COPY')){
+            Mail::to(env('MAIL_CONTACT_FORM_COPY'))->send(new ContactMail($data));
+        }
+
         return back()->with('success','Grazie per averci contattato!');
     }
 }
