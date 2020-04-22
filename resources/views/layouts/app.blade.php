@@ -37,7 +37,7 @@
 
             {{-- Right navbar links --}}
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item d-none d-sm-block">
                     <a href="https://bit.ly/SistemiCovidBax" target="_blank" class="nav-link">{{ __('sidebar.anti_covid_solutions') }}</a>
                 </li>
                 <li class="nav-item">

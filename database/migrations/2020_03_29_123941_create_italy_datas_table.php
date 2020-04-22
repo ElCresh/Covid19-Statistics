@@ -27,6 +27,7 @@ class CreateItalyDatasTable extends Migration
             $table->integer('deceduti');
             $table->integer('totale_casi');
             $table->integer('tamponi');
+            $table->integer('casi_testati');
             $table->string('note_it');
             $table->string('note_en');
         });

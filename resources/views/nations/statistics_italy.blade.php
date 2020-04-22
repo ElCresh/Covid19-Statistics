@@ -22,9 +22,11 @@
     var ospedali_ricoverati_sintomi = [];
     var ospedali_terapia_intensiva = [];
 
+    var casi_testati = [];
     var tamponi = [];
 
     var labels = [];
+
 </script>
 
 <div class="row">
@@ -61,6 +63,7 @@
                             <th scope="col">Totale dimessi</th>
                             <th scope="col">Totale deceduti</th>
                             <th scope="col">Totale casi</th>
+                            <th scope="col">Casi testati</th>
                             <th scope="col">Totale tamponi</th>
                         </tr>
                     </thead>
@@ -99,6 +102,13 @@
                                 <td>{{ $data->dimessi_guariti }}</td>
                                 <td>{{ $data->deceduti }}</td>
                                 <td>{{ $data->totale_casi }}</td>
+                                <td>
+                                    @if($data->casi_testati >= 0)
+                                        {{ $data->casi_testati }}
+                                    @else
+                                        <span class="badge badge-danger">N/A</span>
+                                    @endif
+                                </td>
                                 <td>{{ $data->tamponi }}</td>
                             </tr>
                             <script>
@@ -120,6 +130,16 @@
         
                                 labels.push('{{ $date->toDateString() }}');
                             </script>
+                            
+                            @if($data->casi_testati >= 0)
+                                <script>
+                                    casi_testati.push({{ $data->casi_testati }});
+                                </script>
+                            @else
+                                <script>
+                                    casi_testati.push(null);
+                                </script>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -171,6 +191,7 @@
         ospedali_ricoverati_sintomi.reverse();
         ospedali_terapia_intensiva.reverse();
 
+        casi_testati.reverse();
         tamponi.reverse();
 
         labels.reverse();
@@ -294,20 +315,18 @@
             data:{
                 labels: labels,
                 datasets: [{
+                    label: 'Casi testati',
+                    backgroundColor: chartColors.green,
+                    borderColor: chartColors.green,
+                    fill: false,
+                    data: casi_testati,
+                },{
+                    label: 'Tamponi',
                     backgroundColor: chartColors.grey,
                     borderColor: chartColors.grey,
                     fill: false,
                     data: tamponi,
                 }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Tamponi'
-                },
             }
         });
     }
