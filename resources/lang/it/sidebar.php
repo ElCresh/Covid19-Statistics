@@ -9,5 +9,6 @@
         'global' => 'Globali',
         'more_info' => 'Maggiori informazioni',
         'more_on_project' => 'Vuoi saperne di più sul progetto?',
+        'anti_covid_solutions' => 'Soluzioni Notiosoft e Bax Anti-CoVID',
         'other' => 'Altro',
     ];
