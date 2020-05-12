@@ -54,9 +54,8 @@
                             <th scope="col">Totale terapia intensiva</th>
                             <th scope="col">Totale degenze</th>
                             <th scope="col">Totale isolamento domicilare</th>
-                            <th scope="col">Nuovi malati</th>
                             <th scope="col">Totale attualmente positivi</th>
-                            <th scope="col">Nuovi casi positivi</th>
+                            <th scope="col">Variazione del totale positivi</th>
                             <th scope="col">Totale dimessi</th>
                             <th scope="col">Nuovi decessi</th>
                             <th scope="col">Totale decessi</th>
@@ -68,16 +67,6 @@
                         @foreach($datas as $index => $data)
                             @php
                                 $date = new Carbon($data->data);
-
-                                $diff = $data->nuovi_casi;
-
-                                // diff lookahead for progression
-                                if($index < ($datas->count() - 1)){
-                                    $diff_lookahead = $datas[$index + 1]->nuovi_casi;
-                                }else{
-                                    $diff_lookahead = 0;
-                                }
-                                //--
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date->toDateString() }}</th>
@@ -97,19 +86,18 @@
                                     <i class="text-primary small">{{ $data->domicilio_maschi }}</i>
                                     <i class="text-fuchsia small">{{ $data->domicilio_femmine }}</i>
                                 </td>
-                                <td>{{ $data->nuovi_malati }}</td>
                                 <td>
                                     {{ $data->malati }}<br />
                                     <i class="text-primary small">{{ $data->malati_maschi }}</i>
                                     <i class="text-fuchsia small">{{ $data->malati_femmine }}</i>
                                 </td>
                                 <td>
-                                    @if ($diff_lookahead > $diff)
-                                        <span class="badge badge-success">{{ $diff }}</span>
-                                    @elseif ($diff_lookahead < $diff)
-                                        <span class="badge badge-danger">{{ $diff }}</span>
+                                    @if ($data->nuovi_malati < 0)
+                                        <span class="badge badge-success">{{ $data->nuovi_malati }}</span>
+                                    @elseif ($data->nuovi_malati > 0)
+                                        <span class="badge badge-danger">{{ $data->nuovi_malati }}</span>
                                     @else
-                                        <span class="badge badge-secondary">{{ $diff }}</span>
+                                        <span class="badge badge-secondary">{{ $data->nuovi_malati }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $data->guariti }}</td>

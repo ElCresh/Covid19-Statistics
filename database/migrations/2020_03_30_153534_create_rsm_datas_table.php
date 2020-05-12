@@ -17,6 +17,8 @@ class CreateRsmDatasTable extends Migration
             $table->date('data');
             $table->string('link');
             $table->integer('totale_casi');
+            $table->integer('totale_casi_frontalieri');
+            $table->integer('totale_casi_interni');
             $table->integer('nuovi_casi');
             $table->integer('malati');
             $table->integer('nuovi_malati');
@@ -39,18 +41,19 @@ class CreateRsmDatasTable extends Migration
             $table->integer('domicilio_maschi');
             $table->integer('domicilio_femmine');
             $table->integer('dimissioni');
+            $table->integer('nuove_dimissioni');
             $table->integer('tamponi');
+            $table->integer('nuovi_tamponi');
+            $table->integer('persone_con_tampone');
             $table->integer('tamponi_positivi');
             $table->integer('tamponi_negativi');
             $table->integer('tamponi_in_attesa');
-            $table->integer('persone_con_tampone');
             $table->integer('quarantene');
             $table->integer('quarantene_attive');
             $table->integer('quarantene_attive_laici');
             $table->integer('quarantene_attive_sanitari');
             $table->integer('quarantene_attive_forze_dell_ordine');
             $table->integer('quarantene_terminate');
-            $table->string('incremento_nuovi_casi');
             $table->string('media_mobile_3gg_nuovi_casi');
         });
     }
