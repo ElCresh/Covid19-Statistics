@@ -12,6 +12,16 @@
             <span class="align-middle">
                 {{ config('app.name')}}
             </span>
+            <br />
+            <div class="spinner-grow spinner-bing text-success" role="status">
+                <span class="sr-only">GREEN</span>
+            </div>
+            <div class="spinner-grow spinner-bing text-light ml-2" role="status">
+                <span class="sr-only">WHITE</span>
+            </div>
+            <div class="spinner-grow spinner-bing text-danger ml-2" role="status">
+                <span class="sr-only">RED</span>
+            </div>
         </div>
     </div>
 </div>
@@ -23,19 +33,16 @@
         </div>
         <div class="col-sm-8">
             {{ config('app.name')}}
+            <div class="spinner-grow spinner-bing text-success" role="status">
+                <span class="sr-only">GREEN</span>
+            </div>
+            <div class="spinner-grow spinner-bing text-light ml-2" role="status">
+                <span class="sr-only">WHITE</span>
+            </div>
+            <div class="spinner-grow spinner-bing text-danger ml-2" role="status">
+                <span class="sr-only">RED</span>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="text-center mb-4">
-    <div class="spinner-grow spinner-bing text-success" role="status">
-        <span class="sr-only">GREEN</span>
-    </div>
-    <div class="spinner-grow spinner-bing text-light ml-2" role="status">
-        <span class="sr-only">WHITE</span>
-    </div>
-    <div class="spinner-grow spinner-bing text-danger ml-2" role="status">
-        <span class="sr-only">RED</span>
     </div>
 </div>
 
@@ -49,31 +56,20 @@
             $datas = DB::table('italy_datas')->where('stato','ita')->orderBy('data','DESC')->get();            
             
             if($datas->count() != 0){
-                // diff lookahead for progression
-                if($datas->count() < 2){
-                    $diff_lookahead = $datas[0]->nuovi_attualmente_positivi;
-                    $diff = $datas[0]->nuovi_attualmente_positivi;
-                    $value = $datas[0]->nuovi_attualmente_positivi;
-                }else{
-                    $diff_lookahead = $datas[1]->nuovi_attualmente_positivi;
-                    $diff = $datas[0]->nuovi_attualmente_positivi;
-                    $value = $datas[0]->nuovi_attualmente_positivi;
-                }
-
+                $value = $datas[0]->variazione_totale_positivi;
                 $total_positive = $datas[0]->totale_attualmente_positivi;
+                $total_case = $datas[0]->totale_casi;
             }else{
-                $diff_lookahead = 0;
-                $diff = 0;
                 $value = "?";
-
                 $total_positive = "?";
+                $total_case = "?";
             }
             //--
         @endphp
 
-        @if ($diff_lookahead > $diff)
+        @if ($value < 0)
             <div class="small-box bg-success">
-        @elseif ($diff_lookahead < $diff)
+        @elseif ($value > 0)
             <div class="small-box bg-danger">
         @else
             <div class="small-box bg-secondary">
@@ -81,14 +77,15 @@
             <div class="inner">
                 <h3>{{ $total_positive }}</h3>
                 <p>
-                    Casi attuali<br />
-                    {{ $value }} nuovi casi
+                    Casi attuali<br /><br />
+                    {{ $value }} variazione casi<br />
+                    {{ $total_case }} totale casi
                 </p>
             </div>
             <div class="icon">
-                @if ($diff_lookahead > $diff)
+                @if ($value < 0)
                     <i class="fas fa-chevron-down""></i>
-                @elseif ($diff_lookahead < $diff)
+                @elseif ($value > 0)
                     <i class="fas fa-chevron-up""></i>
                 @else
                     <i class="fas fa-minus"></i>
@@ -108,31 +105,20 @@
             $datas = DB::table('rsm_datas')->orderBy('data','DESC')->get();
 
             if($datas->count() != 0){
-                // diff lookahead for progression
-                if($datas->count() < 2){
-                    $diff_lookahead = $datas[0]->nuovi_casi;
-                    $diff = $datas[0]->nuovi_casi;
-                    $value = $datas[0]->nuovi_casi;
-                }else{
-                    $diff_lookahead = $datas[1]->nuovi_casi;
-                    $diff = $datas[0]->nuovi_casi;
-                    $value = $datas[0]->nuovi_casi;
-                }
-
+                $value = $datas[0]->nuovi_malati;
                 $total_positive = $datas[0]->malati;
+                $total_case = $datas[0]->totale_casi;
             }else{
-                $diff_lookahead = 0;
-                $diff = 0;
                 $value = "?";
-
                 $total_positive = "?";
+                $total_case = "?";
             }
             //--
         @endphp
 
-        @if ($diff_lookahead > $diff)
+        @if ($value < 0)
             <div class="small-box bg-success">
-        @elseif ($diff_lookahead < $diff)
+        @elseif ($value > 0)
             <div class="small-box bg-danger">
         @else
             <div class="small-box bg-secondary">
@@ -140,14 +126,15 @@
             <div class="inner">
                 <h3>{{ $total_positive }}</h3>
                 <p>
-                    Casi attuali<br />
-                    {{ $value }} nuovi casi
+                    Casi attuali<br /><br />
+                    {{ $value }} variazione casi<br />
+                    {{ $total_case }} totale casi
                 </p>
             </div>
             <div class="icon">
-                @if ($diff_lookahead > $diff)
+                @if ($value < 0)
                     <i class="fas fa-chevron-down""></i>
-                @elseif ($diff_lookahead < $diff)
+                @elseif ($value > 0)
                     <i class="fas fa-chevron-up""></i>
                 @else
                     <i class="fas fa-minus"></i>
