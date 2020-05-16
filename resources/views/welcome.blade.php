@@ -151,9 +151,8 @@
         Array Composition:
         [0] => Province (if needed)
         [1] => Nation
-        [2] => Province id for route
     --}}
-    @foreach ([['Hubei','China','Hubei'],['','Germany',''],['','Spain',''],['','France','_']] as $sigla)
+    @foreach ([['Hubei','China'],['Berlin','Germany'],['Madrid','Spain'],['','France']] as $sigla)
         <div class="col-sm-4"> 
             <div class="mb-3">
                 <div class="text-center">
@@ -193,12 +192,6 @@
                         $total_positive = "?";
                     }
                     //--
-
-                    if($sigla[2] != ''){
-                        $url = route('nation.province.statistics', ['sigla' => $sigla[1], 'province' => $sigla[2]]);
-                    }else{
-                        $url = route('nation.statistics', ['sigla' => $sigla[1]]);
-                    }
                 @endphp
 
                 @if ($diff_lookahead > $diff)
@@ -224,7 +217,7 @@
                             <i class="fas fa-minus"></i>
                         @endif
                     </div>
-                    <a href="{{ $url }}" class="small-box-footer">
+                    <a href="{{ route('nation.provinces', ['sigla' => $sigla[1]]) }}" class="small-box-footer">
                         {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
