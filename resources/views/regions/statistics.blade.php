@@ -69,7 +69,6 @@
                             <th scope="col">Totale isolamento domicilare</th>
                             <th scope="col">Attualmente positivi</th>
                             <th scope="col">Variazione del totale positivi</th>
-                            <th scope="col">Nuovi casi positivi</th>
                             <th scope="col">Totale dimessi</th>
                             <th scope="col">Totale deceduti</th>
                             <th scope="col">Totale casi</th>
@@ -82,16 +81,6 @@
                         @foreach($datas as $index => $data)
                             @php
                                 $date = new Carbon($data->data);
-
-                                $diff = $data->nuovi_attualmente_positivi;
-
-                                // diff lookahead for progression
-                                if($index < ($datas->count() - 1)){
-                                    $diff_lookahead = $datas[$index + 1]->nuovi_attualmente_positivi;
-                                }else{
-                                    $diff_lookahead = 0;
-                                }
-                                //--
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date->toDateString() }}</th>
@@ -100,14 +89,13 @@
                                 <td>{{ $data->totale_ospedalizzati }}</td>
                                 <td>{{ $data->isolamento_domiciliare }}</td>
                                 <td>{{ $data->totale_attualmente_positivi }}</td>
-                                <td>{{ $data->variazione_totale_positivi }}</td>
                                 <td>
-                                    @if ($diff_lookahead > $diff)
-                                        <span class="badge badge-success">{{ $diff }}</span>
-                                    @elseif ($diff_lookahead < $diff)
-                                        <span class="badge badge-danger">{{ $diff }}</span>
+                                    @if ($data->variazione_totale_positivi < 0)
+                                        <span class="badge badge-success">{{ $data->variazione_totale_positivi }}</span>
+                                    @elseif ($data->variazione_totale_positivi > 0)
+                                        <span class="badge badge-danger">{{ $data->variazione_totale_positivi }}</span>
                                     @else
-                                        <span class="badge badge-secondary">{{ $diff }}</span>
+                                        <span class="badge badge-secondary">{{ $data->variazione_totale_positivi }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $data->dimessi_guariti }}</td>
