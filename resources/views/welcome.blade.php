@@ -166,48 +166,43 @@
                     $datas = DB::table('nation_datas')->where('province_state',$sigla[0])->where('country_region',$sigla[1])->orderBy('last_update','DESC')->get();
                     
                     if($datas->count() != 0){
-                        // diff lookahead for progression
-                        $prec_giorno = $datas[1]->confirmed;
-                        $diff = $datas[0]->confirmed - $prec_giorno;
-
-                        if($datas->count() > 2){
-                            $prec_giorno_ahead = $datas[2]->confirmed;
+                        if($datas->count() > 1){
+                            $active_case_prev = ($datas[1]->confirmed - ($datas[1]->recovered + $datas[1]->deaths));
                         }else{
-                            $prec_giorno_ahead = 0;
+                            $active_case_prev = 0;
                         }
                         
-                        $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
+                        $active_case = ($datas[0]->confirmed - ($datas[0]->recovered + $datas[0]->deaths));
 
-                        $value = $diff;
+                        $value = $active_case - $active_case_prev;
                         $total_positive = $datas[0]->confirmed;
                     }else{
-                        $diff_lookahead = 0;
-                        $diff = 0;
                         $value = "?";
-
                         $total_positive = "?";
+                        $total_case = "?";
                     }
                     //--
                 @endphp
 
-                @if ($diff_lookahead > $diff)
+                @if ($value < 0)
                     <div class="small-box bg-success">
-                @elseif ($diff_lookahead < $diff)
+                @elseif ($value > 0)
                     <div class="small-box bg-danger">
                 @else
                     <div class="small-box bg-secondary">
                 @endif
                     <div class="inner">
-                        <h3>{{ $total_positive }}</h3>
+                        <h3>{{ $active_case }}</h3>
                         <p>
-                            Casi totali<br />
-                            {{ $diff }} nuovi casi
+                            Casi attuali*<br /><br />
+                            {{ $value }} variazione casi*<br />
+                            {{ $total_positive }} totale casi
                         </p>
                     </div>
                     <div class="icon">
-                        @if ($diff_lookahead > $diff)
+                        @if ($value < 0)
                             <i class="fas fa-chevron-down""></i>
-                        @elseif ($diff_lookahead < $diff)
+                        @elseif ($value > 0)
                             <i class="fas fa-chevron-up""></i>
                         @else
                             <i class="fas fa-minus"></i>
@@ -223,6 +218,7 @@
 </div>
 
 <div class="text-center mb-3">
+    <b>*</b> "{{ __('statistics.active_case') }}" e "Variazione del totale positivi" calcolati automaticamente in base ai dati forniti <br />
     Dati provenienti dalla Protezione Civile per l'Italia, ISS per Repubblica di San Marino e Johns Hopkins CSSE per il resto del mondo.
 </div>
 

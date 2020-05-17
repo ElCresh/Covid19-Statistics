@@ -9,15 +9,18 @@
 @endphp
 
 <script>
-    var differenza_giorno_precedente = [];
+    var casi_attivi = [];
     var casi_deceduti = [];
+    var casi_dimessi = [];
     var casi_totali = [];
+
+    var variazione_casi_attivi = [];
 
     var labels = [];
 </script>
 
 <div class="row">
-    <div class="col">
+    <div class="col-sm-6">
         <div class="title">
             @if ($stato->province_state != '')
                 {{ $stato->province_state }} ({{ $stato->country_region }})
@@ -25,6 +28,23 @@
                 {{ $stato->country_region }}
             @endif
         </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card text-white bg-dark mb-3 float-right">
+            <div class="card-body">
+                <h5 class="card-title">Dettagli:</h5>
+                <p class="card-text text-left links">
+                    @if ($stato->province_state != '')
+                        <b>Denominazione Provincia/Stato:</b> {{ $stato->province_state }} <br />
+                    @endif
+                    <b>Denominazione Nazione:</b> {{ $stato->country_region }} <br />
+                    <b>Coordinate:</b> <a target="_blank" href="https://maps.google.it/?q={{ $stato->latitude }},{{ $stato->longitude }}">{{ $stato->latitude }},{{ $stato->longitude }}</a> <br />
+                </p>
+            </div>
+        </div>
+        <small class="float-right">
+            <b>*</b> "{{ __('statistics.active_case') }}" e "Variazione del totale positivi" calcolati automaticamente in base ai dati forniti
+        </small>
     </div>
 </div>
 
@@ -45,7 +65,9 @@
                         <tr>
                             <th scope="col">{{ __('statistics.date') }}</th>
                             <th scope="col">{{ __('statistics.total_case') }}</th>
-                            <th scope="col">{{ __('statistics.difference_previous_day_short') }}</th>
+                            <th scope="col">{{ __('statistics.active_case') }}*</th>
+                            <th scope="col">Variazione del totale positivi*</th>
+                            <th scope="col">{{ __('statistics.recovered') }}</th>
                             <th scope="col">{{ __('statistics.total_deaths') }}</th>
                         </tr>
                     </thead>
@@ -55,42 +77,38 @@
                                 $date = new Carbon($data->last_update);
 
                                 if($index < ($datas->count() - 1)){
-                                    $prec_giorno = $datas[$index + 1]->confirmed;
+                                    $active_case_prev = ($datas[$index + 1]->confirmed - ($datas[$index + 1]->recovered + $datas[$index + 1]->deaths));
                                 }else{
-                                    $prec_giorno = 0;
+                                    $active_case_prev = 0;
                                 }
 
-                                $diff = $data->confirmed - $prec_giorno;
-
-                                // diff lookahead for progression
-                                if($index < ($datas->count() - 2)){
-                                    $prec_giorno_ahead = $datas[$index + 2]->confirmed;
-                                }else{
-                                    $prec_giorno_ahead = 0;
-                                }
-
-                                $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
-                                //--
+                                $active_case = ($data->confirmed - ($data->recovered + $data->deaths));
+                                $variation_active_case = $active_case - $active_case_prev;
                             @endphp
                             <tr>
                                 <th scope="row">{{ $date }}</th>
                                 <td>{{ $data->confirmed }}</td>
+                                <td>{{ $active_case }}</td>
                                 <td>
-                                    @if ($diff_lookahead > $diff)
-                                        <span class="badge badge-success">{{ $diff }}</span>
-                                    @elseif ($diff_lookahead < $diff)
-                                        <span class="badge badge-danger">{{ $diff }}</span>
+                                    @if ($variation_active_case < 0)
+                                        <span class="badge badge-success">{{ $variation_active_case }}</span>
+                                    @elseif ($variation_active_case > 0)
+                                        <span class="badge badge-danger">{{ $variation_active_case }}</span>
                                     @else
-                                        <span class="badge badge-secondary">{{ $diff }}</span>
+                                        <span class="badge badge-secondary">{{ $variation_active_case }}</span>
                                     @endif
                                 </td>
+                                <td>{{ $data->recovered }}</td>
                                 <td>{{ $data->deaths }}</td>
                             </tr>
                             <script>
                                 // Saving data for charts
-                                differenza_giorno_precedente.push({{ $diff }});
+                                casi_attivi.push({{ $active_case }});
                                 casi_deceduti.push({{ $data->deaths }});
+                                casi_dimessi.push({{ $data->recovered }});
                                 casi_totali.push({{ $data->confirmed }});
+
+                                variazione_casi_attivi.push({{ $variation_active_case }});
 
                                 labels.push('{{ $date }}');
                             </script>
@@ -106,13 +124,13 @@
                 <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
-                <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
+                <canvas id="variazioneCasiAttivi" width="400" height="200"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="casiDimessi" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
                 <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="casiDimessiGuaritiGrafico" width="400" height="200"></canvas>
             </div>
             <div class="col-sm-6">
                 <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
@@ -136,9 +154,12 @@ $(document).ready(() => {
     });
 
     function reverseDataArrays(){
-        differenza_giorno_precedente.reverse();
+        casi_attivi.reverse();
         casi_deceduti.reverse();
+        casi_dimessi.reverse();
         casi_totali.reverse();
+
+        variazione_casi_attivi.reverse();
 
         labels.reverse();
     }
@@ -151,25 +172,23 @@ $(document).ready(() => {
             data:{
                 labels: labels,
                 datasets: [{
+                    label: '{{ __('statistics.total_case') }}',
                     backgroundColor: chartColors.purple,
                     borderColor: chartColors.purple,
                     fill: false,
                     data: casi_totali,
+                },{
+                    label: '{{ __('statistics.active_case') }}*',
+                    backgroundColor: chartColors.yellow,
+                    borderColor: chartColors.yellow,
+                    fill: false,
+                    data: casi_attivi,
                 }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: '{{ __('statistics.total_case') }}'
-                },
             }
         });
 
-        var differenzaGiorPrecGrafico = document.getElementById('differenzaGiorPrecGrafico');
-        var myLineChart = new Chart(differenzaGiorPrecGrafico, {
+        var variazioneCasiAttivi = document.getElementById('variazioneCasiAttivi');
+        var myLineChart = new Chart(variazioneCasiAttivi, {
             type: 'line',
             fill: false,
             data:{
@@ -178,7 +197,7 @@ $(document).ready(() => {
                     backgroundColor: chartColors.orange,
                     borderColor: chartColors.orange,
                     fill: false,
-                    data: differenza_giorno_precedente,
+                    data: variazione_casi_attivi,
                 }]
             },
             options: {
@@ -187,7 +206,31 @@ $(document).ready(() => {
                 },
                 title: {
                     display: true,
-                    text: '{{ __('statistics.difference_previous_day') }}'
+                    text: 'Variazione del totale positivi*'
+                },
+            }
+        });
+
+        var casiDimessi = document.getElementById('casiDimessi');
+        var myLineChart = new Chart(casiDimessi, {
+            type: 'line',
+            fill: false,
+            data:{
+                labels: labels,
+                datasets: [{
+                    backgroundColor: chartColors.orange,
+                    borderColor: chartColors.orange,
+                    fill: false,
+                    data: casi_dimessi,
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: '{{ __('statistics.recovered') }}'
                 },
             }
         });
