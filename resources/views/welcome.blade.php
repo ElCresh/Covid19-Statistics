@@ -152,7 +152,7 @@
         [0] => Province (if needed)
         [1] => Nation
     --}}
-    @foreach ([['Hubei','China'],['Berlin','Germany'],['Madrid','Spain'],['','France']] as $sigla)
+    @foreach ([['Hubei','China'],['','Germany'],['','Spain'],['','France']] as $sigla)
         <div class="col-sm-4"> 
             <div class="mb-3">
                 <div class="text-center">
@@ -177,7 +177,7 @@
                         }
                         
                         $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
-                        
+
                         $value = $diff;
                         $total_positive = $datas[0]->confirmed;
                     }else{
