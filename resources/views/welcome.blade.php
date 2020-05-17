@@ -167,22 +167,18 @@
                     
                     if($datas->count() != 0){
                         // diff lookahead for progression
+                        $prec_giorno = $datas[1]->confirmed;
+                        $diff = $datas[0]->confirmed - $prec_giorno;
+
                         if($datas->count() > 2){
-                            $prec_giorno = $datas[1]->confirmed;
-                            $diff = $datas[0]->confirmed - $prec_giorno;
-
-                            // diff lookahead for progression
                             $prec_giorno_ahead = $datas[2]->confirmed;
-                            $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
-                            
-                            $value = $diff;
                         }else{
-                            $prec_giorno = $datas[1]->confirmed;
-                            $diff = $datas[0]->confirmed - $prec_giorno;
-                            $diff_lookahead = $diff;
-                            $value = $datas[0]->deaths;
+                            $prec_giorno_ahead = 0;
                         }
-
+                        
+                        $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
+                        
+                        $value = $diff;
                         $total_positive = $datas[0]->confirmed;
                     }else{
                         $diff_lookahead = 0;
