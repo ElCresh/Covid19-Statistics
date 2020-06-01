@@ -136,23 +136,23 @@
     </div>
     <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
         <div class="row">
-            <div class="col-sm-6">
-                <canvas id="grph_1_1" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_1_1" width="400" height="120"></canvas>
             </div>
-            <div class="col-sm-6">
-                <canvas id="grph_1_2" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_1_2" width="400" height="120"></canvas>
             </div>
-            <div class="col-sm-6">
-                <canvas id="grph_2_1" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_2_1" width="400" height="120"></canvas>
             </div>
-            <div class="col-sm-6">
-                <canvas id="grph_2_2" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_2_2" width="400" height="120"></canvas>
             </div>
-            <div class="col-sm-6">
-                <canvas id="grph_3_1" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_3_1" width="400" height="120"></canvas>
             </div>
-            <div class="col-sm-6">
-                <canvas id="grph_3_2" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="grph_3_2" width="400" height="120"></canvas>
             </div>
         </div>
     </div>

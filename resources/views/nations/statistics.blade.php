@@ -43,7 +43,7 @@
             </div>
         </div>
         <small class="float-right">
-            <b>*</b> "{{ __('statistics.active_case') }}" e "Variazione del totale positivi" calcolati automaticamente in base ai dati forniti
+            <b>*</b> dati calcolati automaticamente in base ai dati forniti
         </small>
     </div>
 </div>
@@ -120,26 +120,26 @@
     </div>
     <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
         <div class="row">
-            <div class="col-sm-6">
-                <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="variazioneCasiAttivi" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="casiDimessi" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="casiPositiviAttualiGrafico" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="statoOspedaliGrafico" width="400" height="200"></canvas>
-            </div>
-            <div class="col-sm-6">
-                <canvas id="divisioneCasiAttualiGrafico" width="400" height="200"></canvas>
+            <div class="col-sm-12">
+                <canvas id="casiTotaliGrafico" width="400" height="120"></canvas>
             </div>
             <div class="col-sm-12">
-                <canvas id="tamponiGrafico" width="400" height="100"></canvas>
+                <canvas id="variazioneCasiAttivi" width="400" height="120"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="casiDimessi" width="400" height="120"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="casiPositiviAttualiGrafico" width="400" height="120"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="statoOspedaliGrafico" width="400" height="120"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="divisioneCasiAttualiGrafico" width="400" height="120"></canvas>
+            </div>
+            <div class="col-sm-12">
+                <canvas id="tamponiGrafico" width="400" height="120"></canvas>
             </div>
         </div>
     </div>
