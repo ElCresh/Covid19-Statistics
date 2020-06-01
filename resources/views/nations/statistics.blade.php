@@ -30,21 +30,23 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card text-white bg-dark mb-3 float-right">
-            <div class="card-body">
-                <h5 class="card-title">Dettagli:</h5>
-                <p class="card-text text-left links">
-                    @if ($stato->province_state != '')
-                        <b>Denominazione Provincia/Stato:</b> {{ $stato->province_state }} <br />
-                    @endif
-                    <b>Denominazione Nazione:</b> {{ $stato->country_region }} <br />
-                    <b>Coordinate:</b> <a target="_blank" href="https://maps.google.it/?q={{ $stato->latitude }},{{ $stato->longitude }}">{{ $stato->latitude }},{{ $stato->longitude }}</a> <br />
-                </p>
+        <div class="float-right">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Dettagli:</h5>
+                    <p class="card-text text-left links">
+                        @if ($stato->province_state != '')
+                            <b>Denominazione Provincia/Stato:</b> {{ $stato->province_state }} <br />
+                        @endif
+                        <b>Denominazione Nazione:</b> {{ $stato->country_region }} <br />
+                        <b>Coordinate:</b> <a target="_blank" href="https://maps.google.it/?q={{ $stato->latitude }},{{ $stato->longitude }}">{{ $stato->latitude }},{{ $stato->longitude }}</a> <br />
+                    </p>
+                </div>
             </div>
+            <small class="float-right">
+                <b>*</b> dati calcolati automaticamente in base ai dati forniti
+            </small>
         </div>
-        <small class="float-right">
-            <b>*</b> dati calcolati automaticamente in base ai dati forniti
-        </small>
     </div>
 </div>
 
