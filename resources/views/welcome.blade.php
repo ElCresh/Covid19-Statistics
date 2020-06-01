@@ -151,8 +151,9 @@
         Array Composition:
         [0] => Province (if needed)
         [1] => Nation
+        [2] => Direct access to global data
     --}}
-    @foreach ([['Hubei','China'],['','Germany'],['','Spain'],['','France']] as $sigla)
+    @foreach ([['','US', true],['','Germany', true],['','Spain', true],['','France', false]] as $sigla)
         <div class="col-sm-4"> 
             <div class="mb-3">
                 <div class="text-center">
@@ -180,6 +181,7 @@
                         $value = "?";
                         $total_positive = "?";
                         $total_case = "?";
+                        $active_case = "?";
                     }
                     //--
                 @endphp
@@ -208,9 +210,15 @@
                             <i class="fas fa-minus"></i>
                         @endif
                     </div>
-                    <a href="{{ route('nation.provinces', ['sigla' => $sigla[1]]) }}" class="small-box-footer">
-                        {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
-                    </a>
+                    @if($sigla[2])
+                        <a href="{{ route('nation.province.statistics', ['sigla' => $sigla[1], 'province' => '_']) }}" class="small-box-footer">
+                            {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('nation.provinces', ['sigla' => $sigla[1]]) }}" class="small-box-footer">
+                            {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -218,7 +226,7 @@
 </div>
 
 <div class="text-center mb-3">
-    <b>*</b> "{{ __('statistics.active_case') }}" e "Variazione del totale positivi" calcolati automaticamente in base ai dati forniti <br />
+    <b>*</b> Dati calcolati automaticamente in base ai dati forniti <br />
     Dati provenienti dalla Protezione Civile per l'Italia, ISS per Repubblica di San Marino e Johns Hopkins CSSE per il resto del mondo.
 </div>
 
