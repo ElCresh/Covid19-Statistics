@@ -25,7 +25,16 @@ class NationController extends Controller
         $provinces = DB::table('nation_datas')->where('country_region',$sigla)->groupBy('province_state')->orderBy('province_state')->get();
 
         if($provinces->count() > 0){
-            return view('nations.provinces',['provinces' => $provinces]);
+            if($provinces->count() == 1){
+                if ($provinces[0]->province_state != ''){
+                    return redirect(route('nation.province.statistics', ['sigla' => $provinces[0]->country_region, 'province' => $provinces[0]->province_state]));
+                }else{
+                    return redirect(route('nation.province.statistics', ['sigla' => $provinces[0]->country_region, 'province' => '_']));
+                }
+
+            }else{
+                return view('nations.provinces',['provinces' => $provinces]);
+            }
         }else{
             return abort('404',"Not found");
         }
