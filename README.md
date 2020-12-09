@@ -9,7 +9,8 @@ Scopo ulteriori è quello di mantenere online una copia funzionante del progetto
 Sito Consultabile: https://covid19.andreacrescentini.com/ e https://covid19.notiosoft.com/
 
 ## Task programmate:
-
+- [ ] Ripristino struttura dati proveniente dall'ISS - Repubblica di San Marino (Non più conforme con il formato inizialmente utilizzato)
+- [ ] Migliorare visualizzazioni grafici. Visto l'espandersi della finestra temporale risultano difficilmente consultabili nella loro interezza.
 
 ## Task completate:
 
