@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/errors": "^1.1",
-        "laravelcollective/html": "^6.1"
+        "laravelcollective/html": "^6.1",
+        "okipa/laravel-table": "3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
