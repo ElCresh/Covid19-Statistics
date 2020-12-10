@@ -24,8 +24,7 @@ class CreateProvinceDatasTable extends Migration
             $table->double('lat');
             $table->double('long');
             $table->integer('totale_casi');
-            $table->string('note_it');
-            $table->string('note_en');
+            $table->string('note');
         });
     }
 
