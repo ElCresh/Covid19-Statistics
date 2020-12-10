@@ -25,11 +25,15 @@ class CreateItalyDatasTable extends Migration
             $table->integer('nuovi_attualmente_positivi');
             $table->integer('dimessi_guariti');
             $table->integer('deceduti');
+            $table->integer('casi_da_sospetto_diagnostico');
+            $table->integer('casi_da_screening');
             $table->integer('totale_casi');
             $table->integer('tamponi');
             $table->integer('casi_testati');
-            $table->string('note_it');
-            $table->string('note_en');
+            $table->string('note');
+            $table->integer('ingressi_terapia_intensiava');
+            $table->string('note_test');
+            $table->string('note_casi');
         });
     }
 
