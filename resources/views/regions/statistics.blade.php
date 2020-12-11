@@ -68,8 +68,11 @@
                             <th scope="col">Totale ospedalizzati</th>
                             <th scope="col">Totale isolamento domicilare</th>
                             <th scope="col">Attualmente positivi</th>
+                            <th scope="col">Ingressi terapia intensiva</th>
                             <th scope="col">Variazione del totale positivi</th>
                             <th scope="col">Totale dimessi</th>
+                            <th scope="col">Casi da sospetto diagnostico</th>
+                            <th scope="col">Casi da screening</th>
                             <th scope="col">Totale deceduti</th>
                             <th scope="col">Totale casi</th>
                             <th scope="col">Casi testati</th>
@@ -88,6 +91,7 @@
                                 <td>{{ $data->totale_ospedalizzati }}</td>
                                 <td>{{ $data->isolamento_domiciliare }}</td>
                                 <td>{{ $data->totale_attualmente_positivi }}</td>
+                                <td>{{ $data->ingressi_terapia_intensiva }}</td>
                                 <td>
                                     @if ($data->variazione_totale_positivi < 0)
                                         <span class="badge badge-success">{{ $data->variazione_totale_positivi }}</span>
@@ -98,6 +102,8 @@
                                     @endif
                                 </td>
                                 <td>{{ $data->dimessi_guariti }}</td>
+                                <td>{{ $data->casi_da_sospetto_diagnostico }}</td>
+                                <td>{{ $data->casi_da_sospetto_screening }}</td>
                                 <td>{{ $data->deceduti }}</td>
                                 <td>{{ $data->totale_casi }}</td>
                                 <td>
