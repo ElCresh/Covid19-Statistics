@@ -16,6 +16,9 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     
     <script src="{{ asset('js/script.js') }}"></script>
+
+    <!-- Plotty CDN -->
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -140,30 +140,32 @@
         </div>
     </div>
     <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-        <div class="row">
-            <div class="col-sm-12">
-                <canvas id="grph_1_1" width="400" height="120"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="grph_1_2" width="400" height="120"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="grph_2_1" width="400" height="120"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="grph_2_2" width="400" height="120"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="grph_3_1" width="400" height="120"></canvas>
-            </div>
-            <div class="col-sm-12">
-                <canvas id="grph_3_2" width="400" height="120"></canvas>
-            </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_1_1" style="width: auto"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_1_2" style="width: auto"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_2_1" style="width: auto"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_2_2" style="width: auto"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_3_1" style="width: auto"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div id="grph_3_2" style="width: auto"></div>
         </div>
     </div>
 </div>
 
 <script>
+    var plotly_config = {
+        responsive: true,
+    }
+    
     $(document).ready(() => {
         // Reversing arrays because data from DB are DESC ordered
         reverseDataArrays();
@@ -192,136 +194,152 @@
 
     function drawGraphs(){
         var grph_1_1 = document.getElementById('grph_1_1');
-        var myLineChart = new Chart(grph_1_1, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Casi totali',
-                    backgroundColor: chartColors.purple,
-                    borderColor: chartColors.purple,
-                    fill: false,
-                    data: casi_totali,
-                },{
-                    label: 'Casi positivi attuali',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: casi_positivi_attuali,
-                }]
+        Plotly.newPlot( grph_1_1, [
+            {
+                x: labels,
+                y: casi_totali,
+                mode: 'lines',
+                name: 'Casi totali',
+                line: {
+                    color: 'red'
+                }
+            },
+            {
+                x: labels,
+                y: casi_positivi_attuali,
+                mode: 'lines',
+                name: 'Casi positivi attuali',
             }
-        });
+        ], 
+        {
+            plotly_config,
+        } );
 
         var grph_1_2 = document.getElementById('grph_1_2');
-        var myLineChart = new Chart(grph_1_2, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Variazione nuovi positivi',
-                    backgroundColor: chartColors.orange,
-                    borderColor: chartColors.orange,
-                    fill: false,
-                    data: differenza_giorno_precedente,
-                },{
-                    label: 'Variazione del totale positivi',
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: variazione_totale_positivi,
-                }]
+        Plotly.newPlot( grph_1_2, [
+            {
+                x: labels,
+                y: differenza_giorno_precedente,
+                mode: 'lines',
+                name: 'Variazione nuovi positivi',
+                line: {
+                    color: 'orange'
+                }
+            },
+            {
+                x: labels,
+                y: variazione_totale_positivi,
+                mode: 'lines',
+                name: 'Variazione del totale positivi',
+                line: {
+                    color: 'blu'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
 
         var grph_2_1 = document.getElementById('grph_2_1');
-        var myLineChart = new Chart(grph_2_1, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Casi ospedalizzati',
-                    backgroundColor: chartColors.purple,
-                    borderColor: chartColors.purple,
-                    fill: false,
-                    data: casi_ospedalizzati,
-                },{
-                    label: 'Casi isolamento domestico',
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_isolamento_domestico,
-                }]
+        Plotly.newPlot( grph_2_1, [
+            {
+                x: labels,
+                y: casi_ospedalizzati,
+                mode: 'lines',
+                name: 'Casi ospedalizzati',
+                line: {
+                    color: 'purple'
+                }
+            },
+            {
+                x: labels,
+                y: casi_isolamento_domestico,
+                mode: 'lines',
+                name: 'Casi isolamento domestico',
+                line: {
+                    color: 'green'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
 
         var grph_2_2 = document.getElementById('grph_2_2');
-        var myLineChart = new Chart(grph_2_2, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Dimessi guariti',
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_dimessi_guariti,
-                },{
-                    label: 'Deceduti',
-                    backgroundColor: chartColors.red,
-                    borderColor: chartColors.red,
-                    fill: false,
-                    data: casi_deceduti,
-                }]
+        Plotly.newPlot( grph_2_2, [
+            {
+                x: labels,
+                y: casi_dimessi_guariti,
+                mode: 'lines',
+                name: 'Dimessi guariti',
+                line: {
+                    color: 'green'
+                }
+            },
+            {
+                x: labels,
+                y: casi_deceduti,
+                mode: 'lines',
+                name: 'Deceduti',
+                line: {
+                    color: 'red'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
 
         var grph_3_1 = document.getElementById('grph_3_1');
-        var myLineChart = new Chart(grph_3_1, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Ricoverati con sintomi',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: ospedali_ricoverati_sintomi,
-                },{
-                    label: 'Terapia intensiva',
-                    backgroundColor: chartColors.red,
-                    borderColor: chartColors.red,
-                    fill: false,
-                    data: ospedali_terapia_intensiva,
-                }]
+        Plotly.newPlot( grph_3_1, [
+            {
+                x: labels,
+                y: ospedali_terapia_intensiva,
+                type: 'bar',
+                name: 'Terapia intensiva',
+                marker: {
+                    color: 'orange'
+                }
+            },
+            {
+                x: labels,
+                y: ospedali_ricoverati_sintomi,
+                type: 'bar',
+                name: 'Ricoverati con sintomi',
+                marker: {
+                    color: 'yellow'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config,
+            barmode: 'stack'
+        },);
 
         var grph_3_2 = document.getElementById('grph_3_2');
-        var myLineChart = new Chart(grph_3_2, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: 'Casi testati',
-                    backgroundColor: chartColors.green,
-                    borderColor: chartColors.green,
-                    fill: false,
-                    data: casi_testati,
-                },{
-                    label: 'Tamponi',
-                    backgroundColor: chartColors.grey,
-                    borderColor: chartColors.grey,
-                    fill: false,
-                    data: tamponi,
-                }]
+        Plotly.newPlot( grph_3_2, [
+            {
+                x: labels,
+                y: casi_testati,
+                mode: 'lines',
+                name: 'Casi testati',
+                line: {
+                    color: 'green'
+                }
+            },
+            {
+                x: labels,
+                y: tamponi,
+                mode: 'lines',
+                name: 'Tamponi',
+                line: {
+                    color: 'grey'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
     }
         
 </script>
