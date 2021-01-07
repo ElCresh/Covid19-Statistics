@@ -28,11 +28,12 @@ Sito Consultabile: https://covid19.andreacrescentini.com/ e https://covid19.noti
 - [x] Ripristino struttura dati proveniente dall'ISS - Repubblica di San Marino (Non più conforme con il formato inizialmente utilizzato)
 - [x] Ripristino struttura dati proveniente dalla Protezione Civila Italiana
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
+- [ ] Migliorare rappresentazione grafici di andamento
 
 ## Link utili
 * **Laravel** (Framework) https://laravel.com/
 * **pcm-dpc/COVID-19** (Dati Protezione Civile) https://github.com/pcm-dpc/COVID-19 
-* **TinBòta - Dati Coronavirus (RSM)** https://tinbota.github.io/
 * **Johns Hopkins University Center for Systems Science and Engineering** https://github.com/CSSEGISandData/COVID-19
+* ~~**TinBòta - Dati Coronavirus (RSM)** https://tinbota.github.io/~~
 * ~~**ondata/covid19italia**~(Conversione machine readable dati PDF) https://github.com/ondata/covid19italia~~ (dati non più generati)
 * ~~**Opendata UE - COVID-19** https://data.europa.eu/euodp/it/data/dataset/covid-19-coronavirus-data/resource/260bbbde-2316-40eb-aec3-7cd7bfc2f590~~ (dati troppo discostati dalla realtà. necessaria nuova fonte)

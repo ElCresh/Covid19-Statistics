@@ -96,55 +96,6 @@
             </a>
         </div>
     </div>
-    {{-- Rep. San Marino Dashboard --}}
-    <div class="col-sm-4">
-        <div class="text-center">
-            <h4>Rep. di San Marino</h4>
-        </div>
-        @php
-            $datas = DB::table('rsm_datas')->orderBy('data','DESC')->get();
-
-            if($datas->count() != 0){
-                $value = $datas[0]->nuovi_malati;
-                $total_positive = $datas[0]->malati;
-                $total_case = $datas[0]->totale_casi;
-            }else{
-                $value = "?";
-                $total_positive = "?";
-                $total_case = "?";
-            }
-            //--
-        @endphp
-
-        @if ($value < 0)
-            <div class="small-box bg-success">
-        @elseif ($value > 0)
-            <div class="small-box bg-danger">
-        @else
-            <div class="small-box bg-secondary">
-        @endif
-            <div class="inner">
-                <h3>{{ $total_positive }}</h3>
-                <p>
-                    Casi attuali<br /><br />
-                    {{ $value }} variazione casi<br />
-                    {{ $total_case }} totale casi
-                </p>
-            </div>
-            <div class="icon">
-                @if ($value < 0)
-                    <i class="fas fa-chevron-down""></i>
-                @elseif ($value > 0)
-                    <i class="fas fa-chevron-up""></i>
-                @else
-                    <i class="fas fa-minus"></i>
-                @endif
-            </div>
-            <a href="{{ route('nation.statistics', ['sigla' => 'San Marino']) }}" class="small-box-footer">
-                {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
     {{-- 
         = Other Nations Dashboard =
         
@@ -153,7 +104,7 @@
         [1] => Nation
         [2] => Direct access to global data
     --}}
-    @foreach ([['','US', true],['','Germany', true],['','Spain', true],['','France', false]] as $sigla)
+    @foreach ([['','San Marino', true],['','Spain', true],['','Germany', true],['','France', true],['','Portugal', false],['','United Kingdom', true],['','US', true],['','Russia', true]] as $sigla)
         <div class="col-sm-4"> 
             <div class="mb-3">
                 <div class="text-center">

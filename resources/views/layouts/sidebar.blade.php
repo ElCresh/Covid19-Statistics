@@ -71,6 +71,7 @@
                         </p>
                     </a>
                 </li>
+                {{--
                 <li class="nav-item">
                     <a href="https://tinbota.github.io/" target="_blank" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
@@ -79,6 +80,7 @@
                         </p>
                     </a>
                 </li>
+                --}}
                 <li class="nav-header">{{__('sidebar.other')}}</li>
                 <li class="nav-item">
                     <a href="https://github.com/ElCresh/Covid19-Statistics" target="_blank" class="nav-link">

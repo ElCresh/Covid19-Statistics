@@ -25,7 +25,7 @@ Route::get('/provinces/{sigla}', 'ProvinceController@statistics')->name('provinc
 
 Route::view('/nations', 'nations.list')->name('nations');
 Route::get('/nations/Italy', 'NationController@statistics_italy')->name('nation.statistics');
-Route::get('/nations/San Marino', 'NationController@statistics_smr')->name('nation.statistics');
+//Route::get('/nations/San Marino', 'NationController@statistics_smr')->name('nation.statistics');
 Route::get('/nations/{sigla}', 'NationController@statistics')->name('nation.statistics');
 Route::get('/nations/{sigla}/provinces', 'NationController@provinces')->name('nation.provinces');
 Route::get('/nations/{sigla}/provinces/{province}', 'NationController@province_statistics')->name('nation.province.statistics');
