@@ -88,7 +88,7 @@
                                 $variation_active_case = $active_case - $active_case_prev;
                             @endphp
                             <tr>
-                                <th scope="row">{{ $date }}</th>
+                                <th scope="row">{{ $date->toDateString() }}</th>
                                 <td>{{ $data->confirmed }}</td>
                                 <td>{{ $active_case }}</td>
                                 <td>
