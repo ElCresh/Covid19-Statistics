@@ -7,11 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// AdminLTE
-@import "~admin-lte/build/scss/AdminLTE-raw";
+// Material Dashboard
+@import '~material-dashboard/assets/scss/material-dashboard.scss';
+@import 'sidebar-color';
 
-// Font Awesome
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+// Custom styling
+@import 'custom';

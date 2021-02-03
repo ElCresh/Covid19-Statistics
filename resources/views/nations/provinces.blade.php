@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title text-center">
+<div class="h3 text-center">
     {{ __('sidebar.provinces') }}:
 </div>
 
@@ -13,9 +13,9 @@
             <div class="mb-3">
                 <div class="text-center">
                     @if ($province->province_state != '')
-                        <h4>{{ $province->province_state }} ({{ $province->country_region }})</h4>
+                        <h3 class="no-margin">{{ $province->province_state }} ({{ $province->country_region }})</h3>
                     @else
-                        <h4>{{ $province->country_region }}</h4>
+                        <h3 class="no-margin">{{ $province->country_region }}</h3>
                     @endif
                 </div>
                 @php
@@ -41,38 +41,50 @@
                     //--
                 @endphp
 
-                @if ($value < 0)
-                    <div class="small-box bg-success">
-                @elseif ($value > 0)
-                    <div class="small-box bg-danger">
-                @else
-                    <div class="small-box bg-secondary">
-                @endif
-                    <div class="inner">
-                        <h3>{{ $active_case }}</h3>
-                        <p>
-                            Casi attuali*<br /><br />
-                            {{ $value }} variazione casi*<br />
-                            {{ $total_positive }} totale casi
-                        </p>
-                    </div>
-                    <div class="icon">
-                        @if ($value < 0)
-                            <i class="fas fa-chevron-down""></i>
-                        @elseif ($value > 0)
-                            <i class="fas fa-chevron-up""></i>
-                        @else
-                            <i class="fas fa-minus"></i>
-                        @endif
-                    </div>
-                    
-                    @if ($province->province_state != '')
-                        <a href="{{ route('nation.province.statistics', ['sigla' => $province->country_region, 'province' => $province->province_state]) }}" class="small-box-footer">
+                <div class="card">
+                    @if ($value < 0)
+                        <div class="card-header card-header-icon card-header-success">
+                            <div class="card-icon">
+                                <i class="material-icons">expand_more</i>
+                            </div>
+                        </div>
+                    @elseif ($value > 0)
+                        <div class="card-header card-header-icon card-header-danger">
+                            <div class="card-icon">
+                                <i class="material-icons">expand_less</i>
+                            </div>
+                        </div>
                     @else
-                        <a href="{{ route('nation.province.statistics', ['sigla' => $province->country_region, 'province' => '_']) }}" class="small-box-footer">
+                        <div class="card-header card-header-icon card-header-secondary">
+                            <div class="card-icon">
+                                <i class="material-icons">remove</i>
+                            </div>
+                        </div>
                     @endif
-                            {{ __('sidebar.more_info') }} <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="no-margin">{{ $total_positive }}</h3>
+                                Casi attuali*
+                            </div>
+                            <div class="col">
+                                <b>{{ $value }}</b> variazione casi*<br />
+                                <b>{{ $active_case }}</b> totale casi
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">arrow_right_alt</i>
+                            @if ($province->province_state != '')
+                                <a href="{{ route('nation.province.statistics', ['sigla' => $province->country_region, 'province' => $province->province_state]) }}">
+                            @else
+                                <a href="{{ route('nation.province.statistics', ['sigla' => $province->country_region, 'province' => '_']) }}">
+                            @endif
+                                {{ __('sidebar.more_info') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

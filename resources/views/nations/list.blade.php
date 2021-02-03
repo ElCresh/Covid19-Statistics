@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 {{---------------Content---------------}}
 @section('content')
 
-<div class="title text-center">
+<div class="h3 text-center">
     {{ __('sidebar.nations') }}:
 </div>
 

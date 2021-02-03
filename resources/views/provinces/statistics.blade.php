@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 {{---------------Content---------------}}
 @section('content')
@@ -16,7 +16,7 @@
 
 <div class="row">
     <div class="col-sm-7 mb-4">
-        <div class="title">
+        <div class="h3">
             {{ $province->denominazione_provincia }} ({{ $province->sigla_provincia }})
         </div>
     </div>

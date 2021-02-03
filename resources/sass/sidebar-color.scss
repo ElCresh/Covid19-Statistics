@@ -1,0 +1,33 @@
+// Dark Blue
+.sidebar[data-background-color=darkblue] .nav .nav-item .nav-link {
+    color: #fff;
+}
+.sidebar[data-background-color=darkblue] .nav .nav-item i {
+    color: rgba(255, 255, 255, 0.8);
+}
+.sidebar[data-background-color=darkblue] .nav .nav-item.active [data-toggle=collapse], .sidebar[data-background-color=darkblue] .nav .nav-item:hover [data-toggle=collapse] {
+    color: #fff;
+}
+.sidebar[data-background-color=darkblue] .nav .nav-item.active [data-toggle=collapse] i, .sidebar[data-background-color=darkblue] .nav .nav-item:hover [data-toggle=collapse] i {
+    color: rgba(255, 255, 255, 0.8);
+}
+.sidebar[data-background-color=darkblue] .user a {
+    color: #fff;
+}
+.sidebar[data-background-color=darkblue] .simple-text {
+    color: #fff;
+}
+.sidebar[data-background-color=darkblue] .sidebar-background:after {
+    background: #00008B;
+    opacity: 0.8;
+}
+.sidebar[data-background-color=darkblue] .user:after,
+.sidebar[data-background-color=darkblue] .logo:after,
+.sidebar[data-background-color=darkblue] .nav li.separator:after {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.sidebar[data-background-color=darkblue] .nav li:hover:not(.active) > a,
+.sidebar[data-background-color=darkblue] .nav li.active > [data-toggle=collapse] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+//--

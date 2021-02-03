@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 {{---------------Content---------------}}
 @section('content')
@@ -30,133 +30,133 @@
 
 <div class="row">
     <div class="col">
-        <div class="title">
+        <div class="h2 mt-3">
             Italia
         </div>
     </div>
 </div>
 
-<ul class="nav nav-tabs mb-2" id="tabs-menu" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="home" aria-selected="true">{{ __('statistics.data') }}</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab" aria-controls="profile" aria-selected="false">{{ __('statistics.graphs') }}</a>
-    </li>
-</ul>
-<div class="tab-content mb-2" id="tabs-content">
-    <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
-        <div class="row">
-            <div class="col table-responsive">
-                <table class="table text-center">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Data</th>
-                            <th scope="col">Totale ricoverati con sintomi</th>
-                            <th scope="col">Totale terapia intensiva</th>
-                            <th scope="col">Totale ospedalizzati</th>
-                            <th scope="col">Totale isolamento domicilare</th>
-                            <th scope="col">Attualmente positivi</th>
-                            <th scope="col">Ingressi terapia intensiva</th>
-                            <th scope="col">Variazione del totale positivi</th>
-                            <th scope="col">Totale dimessi</th>
-                            <th scope="col">Casi da sospetto diagnostico</th>
-                            <th scope="col">Casi da screening</th>
-                            <th scope="col">Totale deceduti</th>
-                            <th scope="col">Totale casi</th>
-                            <th scope="col">Casi testati</th>
-                            <th scope="col">Totale tamponi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($datas as $index =>$data)
-                            @php
-                                $date = new Carbon($data->data);
-                            @endphp
-                            <tr>
-                                <th scope="row">{{ $date->toDateString() }}</th>
-                                <td>{{ $data->ricoverati_con_sintomi }}</td>
-                                <td>{{ $data->terapia_intensiva }}</td>
-                                <td>{{ $data->totale_ospedalizzati }}</td>
-                                <td>{{ $data->isolamento_domiciliare }}</td>
-                                <td>{{ $data->totale_attualmente_positivi }}</td>
-                                <td>{{ $data->ingressi_terapia_intensiava }}</td>
-                                <td>
-                                    @if ($data->variazione_totale_positivi < 0)
-                                        <span class="badge badge-success">{{ $data->variazione_totale_positivi }}</span>
-                                    @elseif ($data->variazione_totale_positivi > 0)
-                                        <span class="badge badge-danger">{{ $data->variazione_totale_positivi }}</span>
-                                    @else
-                                        <span class="badge badge-secondary">{{ $data->variazione_totale_positivi }}</span>
-                                    @endif
-                                </td>
-                                <td>{{ $data->dimessi_guariti }}</td>
-                                <td>{{ $data->casi_da_sospetto_diagnostico }}</td>
-                                <td>{{ $data->casi_da_screening }}</td>
-                                <td>{{ $data->deceduti }}</td>
-                                <td>{{ $data->totale_casi }}</td>
-                                <td>
-                                    @if($data->casi_testati >= 0)
-                                        {{ $data->casi_testati }}
-                                    @else
-                                        <span class="badge badge-warning">N/A</span>
-                                    @endif
-                                </td>
-                                <td>{{ $data->tamponi }}</td>
-                            </tr>
-                            <script>
-                                // Saving data for charts
-                                differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
-                                variazione_totale_positivi.push({{ $data->variazione_totale_positivi }});
-                                casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
-                                casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
-                                casi_deceduti.push({{ $data->deceduti }});
-                                casi_totali.push({{ $data->totale_casi }});
-        
-                                casi_ospedalizzati.push({{ $data->totale_ospedalizzati }});
-                                casi_isolamento_domestico.push({{ $data->isolamento_domiciliare }});
-        
-                                ospedali_ricoverati_sintomi.push({{ $data->ricoverati_con_sintomi }});
-                                ospedali_terapia_intensiva.push({{ $data->terapia_intensiva }});
-        
-                                tamponi.push({{ $data->tamponi }});
-        
-                                labels.push('{{ $date->toDateString() }}');
-                            </script>
-                            
-                            @if($data->casi_testati >= 0)
-                                <script>
-                                    casi_testati.push({{ $data->casi_testati }});
-                                </script>
-                            @else
-                                <script>
-                                    casi_testati.push(null);
-                                </script>
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
+<div class="card card-nav-tabs card-plain">
+    <div class="card-header card-header-info">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#data" data-toggle="tab">Dati</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#graphs" data-toggle="tab">Grafici</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-        <div class="d-flex justify-content-center">
-            <div id="grph_1_1" style="width: auto"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div id="grph_1_2" style="width: auto"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div id="grph_2_1" style="width: auto"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div id="grph_2_2" style="width: auto"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div id="grph_3_1" style="width: auto"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div id="grph_3_2" style="width: auto"></div>
+
+    <div class="card-body ">
+        <div class="tab-content text-center">
+            <div class="tab-pane active" id="data">
+                <div class="row">
+                    <div class="col table-responsive">
+                        <table class="table text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Totale ricoverati con sintomi</th>
+                                    <th scope="col">Totale terapia intensiva</th>
+                                    <th scope="col">Totale ospedalizzati</th>
+                                    <th scope="col">Totale isolamento domicilare</th>
+                                    <th scope="col">Attualmente positivi</th>
+                                    <th scope="col">Ingressi terapia intensiva</th>
+                                    <th scope="col">Variazione del totale positivi</th>
+                                    <th scope="col">Totale dimessi</th>
+                                    <th scope="col">Casi da sospetto diagnostico</th>
+                                    <th scope="col">Casi da screening</th>
+                                    <th scope="col">Totale deceduti</th>
+                                    <th scope="col">Totale casi</th>
+                                    <th scope="col">Casi testati</th>
+                                    <th scope="col">Totale tamponi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($datas as $index =>$data)
+                                    @php
+                                        $date = new Carbon($data->data);
+                                    @endphp
+                                    <tr>
+                                        <th scope="row">{{ $date->toDateString() }}</th>
+                                        <td>{{ $data->ricoverati_con_sintomi }}</td>
+                                        <td>{{ $data->terapia_intensiva }}</td>
+                                        <td>{{ $data->totale_ospedalizzati }}</td>
+                                        <td>{{ $data->isolamento_domiciliare }}</td>
+                                        <td>{{ $data->totale_attualmente_positivi }}</td>
+                                        <td>{{ $data->ingressi_terapia_intensiava }}</td>
+                                        <td>
+                                            @if ($data->variazione_totale_positivi < 0)
+                                                <span class="badge badge-success">{{ $data->variazione_totale_positivi }}</span>
+                                            @elseif ($data->variazione_totale_positivi > 0)
+                                                <span class="badge badge-danger">{{ $data->variazione_totale_positivi }}</span>
+                                            @else
+                                                <span class="badge badge-secondary">{{ $data->variazione_totale_positivi }}</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $data->dimessi_guariti }}</td>
+                                        <td>{{ $data->casi_da_sospetto_diagnostico }}</td>
+                                        <td>{{ $data->casi_da_screening }}</td>
+                                        <td>{{ $data->deceduti }}</td>
+                                        <td>{{ $data->totale_casi }}</td>
+                                        <td>
+                                            @if($data->casi_testati >= 0)
+                                                {{ $data->casi_testati }}
+                                            @else
+                                                <span class="badge badge-warning">N/A</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $data->tamponi }}</td>
+                                    </tr>
+                                    <script>
+                                        // Saving data for charts
+                                        differenza_giorno_precedente.push({{ $data->nuovi_attualmente_positivi }});
+                                        variazione_totale_positivi.push({{ $data->variazione_totale_positivi }});
+                                        casi_positivi_attuali.push({{ $data->totale_attualmente_positivi }});
+                                        casi_dimessi_guariti.push({{ $data->dimessi_guariti }});
+                                        casi_deceduti.push({{ $data->deceduti }});
+                                        casi_totali.push({{ $data->totale_casi }});
+                
+                                        casi_ospedalizzati.push({{ $data->totale_ospedalizzati }});
+                                        casi_isolamento_domestico.push({{ $data->isolamento_domiciliare }});
+                
+                                        ospedali_ricoverati_sintomi.push({{ $data->ricoverati_con_sintomi }});
+                                        ospedali_terapia_intensiva.push({{ $data->terapia_intensiva }});
+                
+                                        tamponi.push({{ $data->tamponi }});
+                
+                                        labels.push('{{ $date->toDateString() }}');
+                                    </script>
+                                    
+                                    @if($data->casi_testati >= 0)
+                                        <script>
+                                            casi_testati.push({{ $data->casi_testati }});
+                                        </script>
+                                    @else
+                                        <script>
+                                            casi_testati.push(null);
+                                        </script>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane active" id="graphs">
+                <div id="grph_1_1"></div>
+                <div id="grph_1_2"></div>
+                <div id="grph_2_1"></div>
+                <div id="grph_2_2"></div>
+                <div id="grph_3_1"></div>
+                <div id="grph_3_2"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -340,6 +340,8 @@
         {
             plotly_config
         } );
+
+        $('#graphs').removeClass('active');
     }
         
 </script>
