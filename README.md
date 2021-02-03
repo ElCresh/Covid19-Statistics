@@ -1,4 +1,5 @@
 # Covid19_Statistics
+![Screenshot](Screenshot.png)
 
 ## Dettagli Progetto:
 
@@ -29,6 +30,7 @@ Sito Consultabile: https://covid19.andreacrescentini.com/ e https://covid19.noti
 - [x] Ripristino struttura dati proveniente dalla Protezione Civila Italiana
 - [ ] ~~Potenziare i dati delle provincie con le elaborazioni complete machine readable dei PDF forniti della Protezione Civile~~
 - [ ] Migliorare rappresentazione grafici di andamento
+- [ ] Migliorare rendering tabelle
 
 ## Link utili
 * **Laravel** (Framework) https://laravel.com/
