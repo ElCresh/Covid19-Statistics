@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\ItalyData;
+
+use App\Tables\ItalyDataTable;
 
 class NationController extends Controller
 {
     public function statistics_italy(){
-        $sigla = "ita";
-        $stato = DB::table('italy_datas')->where('stato',$sigla)->first();
-        $datas = DB::table('italy_datas')->where('stato',$sigla)->orderBy('data','DESC')->get();
+        $sigla = "Italy";
 
-        return view('nations.statistics_italy',['stato' => $stato, 'datas' => $datas]);
-    }
+        $stato = ItalyData::first();
+        $data = ItalyData::orderBy('data','DESC')->get();
 
-    public function statistics_smr(){
-        $stato = null;
-        $datas = DB::table('rsm_datas')->orderBy('data','DESC')->get();
-
-        return view('nations.statistics_smr',['stato' => $stato, 'datas' => $datas]);
+        return view('nations.statistics_italy',['stato' => $stato, 'data' => $data, 'table' => (new ItalyDataTable($sigla))->setup()]);
     }
 
     public function provinces($sigla){
