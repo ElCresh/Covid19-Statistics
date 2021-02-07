@@ -37,70 +37,51 @@
 
 <div class="row">
     <div class="col-md-4 table-responsive">
-        <table class="table text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Totale casi</th>
-                    <th scope="col">Diff. prec. gior.</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
+        {{ $table }}
+        @php
+            $prec_giorno = 0;
+        @endphp
+        @foreach($datas as $index => $data)
+            @php
+                $date = new Carbon($data->data);
+
+                if($index < ($datas->count() - 1)){
+                    $prec_giorno = $datas[$index + 1]->totale_casi;
+                }else{
                     $prec_giorno = 0;
-                @endphp
-                @foreach($datas as $index => $data)
-                    @php
-                        $date = new Carbon($data->data);
+                }
 
-                        if($index < ($datas->count() - 1)){
-                            $prec_giorno = $datas[$index + 1]->totale_casi;
-                        }else{
-                            $prec_giorno = 0;
-                        }
+                $diff = $data->totale_casi - $prec_giorno;
 
-                        $diff = $data->totale_casi - $prec_giorno;
+                // diff lookahead for progression
+                if($index < ($datas->count() - 2)){
+                    $prec_giorno_ahead = $datas[$index + 2]->totale_casi;
+                }else{
+                    $prec_giorno_ahead = 0;
+                }
 
-                        // diff lookahead for progression
-                        if($index < ($datas->count() - 2)){
-                            $prec_giorno_ahead = $datas[$index + 2]->totale_casi;
-                        }else{
-                            $prec_giorno_ahead = 0;
-                        }
-
-                        $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
-                        //--
-                    @endphp
-                    <tr>
-                        <th scope="row">{{ $date->toDateString() }}</th>
-                        <td>{{ $data->totale_casi }}</td>
-                        <td>
-                            @if ($diff_lookahead > $diff)
-                                <span class="badge badge-success">{{ $diff }}</span>
-                            @elseif ($diff_lookahead < $diff)
-                                <span class="badge badge-danger">{{ $diff }}</span>
-                            @else
-                                <span class="badge badge-secondary">{{ $diff }}</span>
-                            @endif
-                        </td>
-                    </tr>
-                    <script>
-                        // Saving data for charts
-                        differenza_giorno_precedente.push({{ $diff }});
-                        casi_totali.push({{ $data->totale_casi }});
-                        labels.push('{{ $date->toDateString() }}');
-                    </script>
-                @endforeach
-            </tbody>
-        </table>
+                $diff_lookahead = $prec_giorno - $prec_giorno_ahead;
+                //--
+            @endphp
+            <script>
+                // Saving data for charts
+                differenza_giorno_precedente.push({{ $diff }});
+                casi_totali.push({{ $data->totale_casi }});
+                labels.push('{{ $date->toDateString() }}');
+            </script>
+        @endforeach
     </div>
     <div class="col-md-8">
-        <canvas id="casiTotaliGrafico" width="400" height="200"></canvas>
-        <canvas id="differenzaGiorPrecGrafico" width="400" height="200"></canvas>
+        <div id="grph_1"></div>
+        <div id="grph_2"></div>
     </div>
 </div>
 
 <script>
+    var plotly_config = {
+        responsive: true,
+    }
+
     $(document).ready(() => {
         // Reversing arrays because data from DB are DESC ordered
         reverseDataArrays();
@@ -114,53 +95,37 @@
     }
 
     function drawGraphs(){
-        var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
-        var myLineChart = new Chart(casiTotaliGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    fill: false,
-                    data: casi_totali,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Casi totali'
-                },
+        var grph_1 = document.getElementById('grph_1');
+        Plotly.newPlot( grph_1, [
+            {
+                x: labels,
+                y: casi_totali,
+                mode: 'lines',
+                name: 'Casi totali',
+                line: {
+                    color: 'red'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config,
+        } );
 
-        var differenzaGiorPrecGrafico = document.getElementById('differenzaGiorPrecGrafico');
-        var myLineChart = new Chart(differenzaGiorPrecGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: 'rgb(255, 159, 64)',
-                    borderColor: 'rgb(255, 159, 64)',
-                    fill: false,
-                    data: differenza_giorno_precedente,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Differenza giorno precedente'
-                },
+        var grph_2 = document.getElementById('grph_2');
+        Plotly.newPlot( grph_2, [
+            {
+                x: labels,
+                y: differenza_giorno_precedente,
+                mode: 'lines',
+                name: 'Variazione nuovi positivi',
+                line: {
+                    color: 'orange'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
     }
 </script>
 

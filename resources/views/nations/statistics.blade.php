@@ -70,99 +70,51 @@
             <div class="tab-pane active" id="data">
                 <div class="row">
                     <div class="col table-responsive">
-                        <table class="table text-center">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">{{ __('statistics.date') }}</th>
-                                    <th scope="col">{{ __('statistics.total_case') }}</th>
-                                    <th scope="col">{{ __('statistics.active_case') }}*</th>
-                                    <th scope="col">Variazione del totale positivi*</th>
-                                    <th scope="col">{{ __('statistics.recovered') }}</th>
-                                    <th scope="col">{{ __('statistics.total_deaths') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($datas as $index => $data)
-                                    @php
-                                        $date = new Carbon($data->last_update);
+                        {{ $table }}
+                        @foreach($datas as $index => $data)
+                            @php
+                                $date = new Carbon($data->last_update);
 
-                                        if($index < ($datas->count() - 1)){
-                                            $active_case_prev = ($datas[$index + 1]->confirmed - ($datas[$index + 1]->recovered + $datas[$index + 1]->deaths));
-                                        }else{
-                                            $active_case_prev = 0;
-                                        }
+                                if($index < ($datas->count() - 1)){
+                                    $active_case_prev = ($datas[$index + 1]->confirmed - ($datas[$index + 1]->recovered + $datas[$index + 1]->deaths));
+                                }else{
+                                    $active_case_prev = 0;
+                                }
 
-                                        $active_case = ($data->confirmed - ($data->recovered + $data->deaths));
-                                        $variation_active_case = $active_case - $active_case_prev;
-                                    @endphp
-                                    <tr>
-                                        <th scope="row">{{ $date->toDateString() }}</th>
-                                        <td>{{ $data->confirmed }}</td>
-                                        <td>{{ $active_case }}</td>
-                                        <td>
-                                            @if ($variation_active_case < 0)
-                                                <span class="badge badge-success">{{ $variation_active_case }}</span>
-                                            @elseif ($variation_active_case > 0)
-                                                <span class="badge badge-danger">{{ $variation_active_case }}</span>
-                                            @else
-                                                <span class="badge badge-secondary">{{ $variation_active_case }}</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $data->recovered }}</td>
-                                        <td>{{ $data->deaths }}</td>
-                                    </tr>
-                                    <script>
-                                        // Saving data for charts
-                                        casi_attivi.push({{ $active_case }});
-                                        casi_deceduti.push({{ $data->deaths }});
-                                        casi_dimessi.push({{ $data->recovered }});
-                                        casi_totali.push({{ $data->confirmed }});
+                                $active_case = ($data->confirmed - ($data->recovered + $data->deaths));
+                                $variation_active_case = $active_case - $active_case_prev;
+                            @endphp
+                            <script>
+                                // Saving data for charts
+                                casi_attivi.push({{ $active_case }});
+                                casi_deceduti.push({{ $data->deaths }});
+                                casi_dimessi.push({{ $data->recovered }});
+                                casi_totali.push({{ $data->confirmed }});
 
-                                        variazione_casi_attivi.push({{ $variation_active_case }});
+                                variazione_casi_attivi.push({{ $variation_active_case }});
 
-                                        labels.push('{{ $date }}');
-                                    </script>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                labels.push('{{ $date }}');
+                            </script>
+                        @endforeach
                     </div>
                 </div>
             </div>
 
-            <div class="tab-pane" id="graphs">
-                <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <canvas id="casiTotaliGrafico" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="variazioneCasiAttivi" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="casiDimessi" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="casiPositiviAttualiGrafico" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="statoOspedaliGrafico" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="divisioneCasiAttualiGrafico" width="400" height="120"></canvas>
-                        </div>
-                        <div class="col-sm-12">
-                            <canvas id="tamponiGrafico" width="400" height="120"></canvas>
-                        </div>
-                    </div>
-                </div>
+            <div class="tab-pane active" id="graphs">
+                <div id="graph_1"></div>
+                <div id="graph_2"></div>
+                <div id="graph_3"></div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    var plotly_config = {
+        responsive: true,
+    }
 
-$(document).ready(() => {
+    $(document).ready(() => {
         // Reversing arrays because data from DB are DESC ordered
         reverseDataArrays();
         drawGraphs();
@@ -180,99 +132,70 @@ $(document).ready(() => {
     }
 
     function drawGraphs(){
-        var casiTotaliGrafico = document.getElementById('casiTotaliGrafico');
-        var myLineChart = new Chart(casiTotaliGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    label: '{{ __('statistics.total_case') }}',
-                    backgroundColor: chartColors.purple,
-                    borderColor: chartColors.purple,
-                    fill: false,
-                    data: casi_totali,
-                },{
-                    label: '{{ __('statistics.active_case') }}*',
-                    backgroundColor: chartColors.yellow,
-                    borderColor: chartColors.yellow,
-                    fill: false,
-                    data: casi_attivi,
-                }]
-            }
-        });
-
-        var variazioneCasiAttivi = document.getElementById('variazioneCasiAttivi');
-        var myLineChart = new Chart(variazioneCasiAttivi, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.orange,
-                    borderColor: chartColors.orange,
-                    fill: false,
-                    data: variazione_casi_attivi,
-                }]
+        var graph_1 = document.getElementById('graph_1');
+        Plotly.newPlot( graph_1, [
+            {
+                x: labels,
+                y: casi_totali,
+                mode: 'lines',
+                name: '{{ __('statistics.total_case') }}',
+                line: {
+                    color: 'red'
+                }
             },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Variazione del totale positivi*'
-                },
+            {
+                x: labels,
+                y: casi_attivi,
+                mode: 'lines',
+                name: '{{ __('statistics.active_case') }}*',
             }
-        });
+        ], 
+        {
+            plotly_config,
+        } );
 
-        var casiDimessi = document.getElementById('casiDimessi');
-        var myLineChart = new Chart(casiDimessi, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.orange,
-                    borderColor: chartColors.orange,
-                    fill: false,
-                    data: casi_dimessi,
-                }]
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: '{{ __('statistics.recovered') }}'
-                },
+        var graph_2 = document.getElementById('graph_2');
+        Plotly.newPlot( graph_2, [
+            {
+                x: labels,
+                y: variazione_casi_attivi,
+                mode: 'lines',
+                name: 'Variazione del totale positivi',
+                line: {
+                    color: 'blu'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
 
-        var casiPositiviAttualiGrafico = document.getElementById('casiPositiviAttualiGrafico');
-        var myLineChart = new Chart(casiPositiviAttualiGrafico, {
-            type: 'line',
-            fill: false,
-            data:{
-                labels: labels,
-                datasets: [{
-                    backgroundColor: chartColors.red,
-                    borderColor: chartColors.red,
-                    fill: false,
-                    data: casi_deceduti,
-                }]
+        var graph_3 = document.getElementById('graph_3');
+        Plotly.newPlot( graph_3, [
+            {
+                x: labels,
+                y: casi_dimessi,
+                mode: 'lines',
+                name: '{{ __('statistics.recovered') }}',
+                line: {
+                    color: 'green'
+                }
             },
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: '{{ __('statistics.total_deaths') }}'
-                },
+            {
+                x: labels,
+                y: casi_deceduti,
+                mode: 'lines',
+                name: '{{ __('statistics.total_deaths') }}',
+                line: {
+                    color: 'red'
+                }
             }
-        });
+        ], 
+        {
+            plotly_config
+        } );
+
+        $('#graphs').removeClass('active');
     }
 </script>
 

@@ -5,9 +5,6 @@ require('../../node_modules/material-dashboard/assets/js/core/bootstrap-material
 require('../../node_modules/material-dashboard/assets/js/plugins/perfect-scrollbar.jquery.min.js');
 require('../../node_modules/material-dashboard/assets/js/material-dashboard.js');
 
-// Chart.JS
-var Chart = require('chart.js')
-
 // Color user in charts
 chartColors = {
     red: 'rgb(255, 99, 132)',
